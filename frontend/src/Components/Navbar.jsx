@@ -12,9 +12,6 @@ function Navbar1() {
   ]);
 
   const activeColor = (x) => {
-    // let currcolors=["#2D7B90","#2D7B90","#2D7B90","#2D7B90","#2D7B90"];
-    // currcolors[x]="#5ACEB6";
-    // setColors(currcolors);
   };
 
   return (

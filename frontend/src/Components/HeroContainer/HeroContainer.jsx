@@ -7,16 +7,17 @@ const HeroContainer = () => {
       {/**************************************************************************************************/}
       <div
         style={{
-          background: "black",
-          width: "100%",
+        //   background: "",
+          width: "100vw",
           height: "100vh",
-          textAlign: "center",
-          paddingTop: "40vh",
+        //   textAlign: "center",
+        //   paddingTop: "40vh",
           color: "white",
-          fontSize: "5vw",
+        //   fontSize: "5vw",
         }}
       >
-        hello
+      <img src="./images/Main.png" style={{width:"100%",height:"100%"}} />
+        {/* hello */}
       </div>
       {/**************************************************************************************************/}
       <div
@@ -336,6 +337,18 @@ const HeroContainer = () => {
           </div>
         </div>
       </div>
+      {/**************************************************************************************************/}
+      <div
+        style={{
+          background: "white",
+          width: "100vw",
+          height: "35vh",
+          textAlign: "center",
+          paddingTop: "2vw",
+          color: "black",
+          letterSpacing:"0.2vw"
+        }}
+      ></div>
     </>
   );
 };

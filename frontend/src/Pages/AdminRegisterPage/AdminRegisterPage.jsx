@@ -202,13 +202,7 @@ const AdminRegisterPage = () => {
             onChange={(e) => setState1(e.target.value)}
             autoWidth
           >
-            {/* <MenuItem value="">
-              <em>Enter your State</em>
-            </MenuItem> */}
             {displayStates}
-            {/* <MenuItem value={10}>Ten</MenuItem> */}
-            {/* <MenuItem value={20}>Twenty</MenuItem> */}
-            {/* <MenuItem value={30}>Thirty</MenuItem> */}
           </Select>
         </FormControl>
         <br />

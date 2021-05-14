@@ -1,8 +1,31 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 import { TextField } from "@material-ui/core";
+import Axios from "axios";
 
 const Subscription = () => {
+  const [name,setName]=React.useState("");
+  const [email,setEmail]=React.useState("");
+
+  const addNewSubscriber = () => {
+
+    const data={name,email};
+    Axios.post("http://localhost:5000/utility/mailnew",data)
+    .then((res) => {
+        if(res.data.success){
+            console.log("Adding a new Subscriber");
+            console.log(res.data.response)
+            // dispatch({type:actionTypes.CHANGE_USER , user:res.data.response})
+        }
+        else{
+            console.log(res.data.message)
+        }
+    })
+    .catch((err) => {
+      console.log("Axios", err);
+    });
+  };
+
   return (
     <div
       style={{
@@ -30,6 +53,8 @@ const Subscription = () => {
             }}
             label="Enter your name"
             variant="outlined"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
           <br />
           <TextField
@@ -44,6 +69,8 @@ const Subscription = () => {
             }}
             label="Enter your email address"
             variant="outlined"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <br />
           <Button
@@ -56,6 +83,7 @@ const Subscription = () => {
               fontSize: "1.2vw",
               color: "black",
             }}
+            onClick={() => addNewSubscriber()}
           >
             Submit
           </Button>

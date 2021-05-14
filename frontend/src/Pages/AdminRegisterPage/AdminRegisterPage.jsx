@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { Button } from "react-bootstrap";
+import Axios from "axios"
 import {
   FormControl,
   InputLabel,
@@ -9,7 +10,7 @@ import {
   TextField,
 } from "@material-ui/core";
 
-const LandingPage = () => {
+const AdminRegisterPage = () => {
   const [displayStates, setDisplayStates] = React.useState("");
   const [states, setStates] = React.useState([
     "Andhra-Pradesh",
@@ -70,7 +71,21 @@ const LandingPage = () => {
       type,
     };
     console.log(data);
-    //API call
+    Axios.post("http://localhost:5000/org/register",data)
+        .then((res) => {
+            if(res.data.success){
+                console.log("Registering the user");
+                console.log(res.data.response)
+                // dispatch({type:actionTypes.CHANGE_USER , user:res.data.response})
+                // /*On success ->*/ history.push('/homePage');
+            }
+            else{
+                console.log(res.data.message)
+            }
+        })
+        .catch((err) => {
+          console.log("Axios", err);
+        });
   };
 
   useEffect(() => {
@@ -91,7 +106,7 @@ const LandingPage = () => {
       </Helmet>
       <div style={{ textAlign: "center", padding: "10vw 20vw 10vw 20vw" }}>
         <TextField
-          style={{ margin: "0 0 0 0", padding: "1vw 0 0 0 " }}
+          style={{ margin: "1vw 0 0 0", padding: "1vw 0 0 0 " }}
           InputProps={{
             style: {
               borderRadius: "50px",
@@ -107,7 +122,7 @@ const LandingPage = () => {
         />
         <br />
         <TextField
-          style={{ margin: "0 0 0 0", padding: "1vw 0 0 0 " }}
+          style={{ margin: "1vw 0 0 0", padding: "1vw 0 0 0 " }}
           InputProps={{
             style: {
               borderRadius: "50px",
@@ -123,7 +138,7 @@ const LandingPage = () => {
         />
         <br />
         <TextField
-          style={{ margin: "0 0 0 0", padding: "1vw 0 0 0 " }}
+          style={{ margin: "1vw 0 0 0", padding: "1vw 0 0 0 " }}
           InputProps={{
             style: {
               borderRadius: "50px",
@@ -140,7 +155,7 @@ const LandingPage = () => {
         />
         <br />
         <TextField
-          style={{ margin: "0 0 0 0", padding: "1vw 0 0 0 " }}
+          style={{ margin: "1vw 0 0 0", padding: "1vw 0 0 0 " }}
           InputProps={{
             style: {
               borderRadius: "50px",
@@ -156,7 +171,7 @@ const LandingPage = () => {
         />
         <br />
         <TextField
-          style={{ margin: "0 0 0 0", padding: "1vw 0 0 0 " }}
+          style={{ margin: "1vw 0 0 0", padding: "1vw 0 0 0 " }}
           InputProps={{
             style: {
               borderRadius: "50px",
@@ -198,7 +213,7 @@ const LandingPage = () => {
         </FormControl>
         <br />
         <TextField
-          style={{ margin: "0 0 0 0", padding: "1vw 0 0 0 " }}
+          style={{ margin: "1vw 0 0 0", padding: "1vw 0 0 0 " }}
           InputProps={{
             style: {
               borderRadius: "50px",
@@ -257,4 +272,4 @@ const LandingPage = () => {
   );
 };
 
-export default LandingPage;
+export default AdminRegisterPage;

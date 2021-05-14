@@ -53,7 +53,7 @@ const HeroContainer = () => {
 
   const fillDistrictsDropDown = (e) => {
     setState1(e.target.value);
-    Axios.post("http://localhost:5000/utility/districts", e.target.value)
+    Axios.post("http://localhost:5000/utility/districts", {state:e.target.value})
       .then((res) => {
         if (res.data.success) {
           console.log("Filling up the Districts");

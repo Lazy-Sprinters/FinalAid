@@ -1,11 +1,16 @@
 const express=require('express');
 const router=new express.Router();
 const path=require("path");
-const db=require('../dbconfig/firebase')
+const db=require('../dbconfig/firebase');
+const jwt=require('jsonwebtoken');
 const data=require('../../city-state-data.json');
+
+require('dotenv').config({path:path.resolve(__dirname,'../../.env')})
+
 
 router.post('/districts',async(req,res)=>{
       try{
+            console.log(req.body);  
             res.send({
                   success: true,
                   code: 200,
@@ -20,7 +25,7 @@ router.post('/districts',async(req,res)=>{
                   response: null,
             });
       }
-})
+});
 
 router.post('/mailnew',async(req,res)=>{
       try{
@@ -43,6 +48,60 @@ router.post('/mailnew',async(req,res)=>{
                   success: false,
                   code: 400,
                   message: "Some error occured",
+                  response: null,
+            });
+      }
+});
+
+router.post('/checkauth',async(req,res)=>{
+      try{
+            // console.log(req.body.user.id);
+            const ref=await db.collection("Organization").doc(req.body.user.id).get();
+            if (!ref.exists){
+                  res.send({
+                        success: false,
+                        code: 403,
+                        message: "Session Invalid",
+                        response: null,
+                  });
+            }else{
+                  const decoded=jwt.verify(req.body.token,process.env.SECRET);
+                  // console.log(decoded);
+                  if (decoded._id==req.body.user.id){            
+                        res.send({
+                              success: true,
+                              code: 200,
+                              message: "Session Valid",
+                              response: null,
+                        });
+                  }else{            
+                        res.send({
+                              success: false,
+                              code: 403,
+                              message: "Session Invalid",
+                              response: null,
+                        });
+                  }
+            }
+      }catch(err){
+            // console.log(err.message);
+            res.send({
+                  success: false,
+                  code: 403,
+                  message: "Session Invalid",
+                  response: null,
+            });
+      }
+});
+
+router.post('/stats',async(req,res)=>{
+      try{
+
+      }catch(err){
+            res.send({
+                  success: false,
+                  code: 403,
+                  message: "Session Invalid",
                   response: null,
             });
       }

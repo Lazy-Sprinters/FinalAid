@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Modal } from "react-bootstrap";
 import Axios from "axios";
 import {
@@ -7,7 +7,7 @@ import {
   FormControlLabel,
   FormLabel,
 } from "@material-ui/core";
-import "./AddNewVolunteer.css"
+import "./AddNewVolunteer.css";
 import { useDispatch, useSelector } from "react-redux";
 
 const AddNewVolunteer = (props) => {
@@ -46,7 +46,7 @@ const AddNewVolunteer = (props) => {
       image,
       imageType,
     };
-    const x = {user,token,data};
+    const x = { user, token, data };
     console.log(x);
 
     //API Call
@@ -65,6 +65,12 @@ const AddNewVolunteer = (props) => {
         console.log("Axios", err);
       });
   };
+  useEffect(() => {
+    if(props.data!=null){
+      //Do something and store the data
+    }
+  }, []
+  );
   return (
     <>
       <Modal
@@ -74,23 +80,33 @@ const AddNewVolunteer = (props) => {
         // size={props.size}
         centered
       >
-        <Modal.Header style={{ border: "none", background: "#D7D8DE" ,borderRadius:"20px 20px 0 0"}}>
+        <Modal.Header
+          style={{
+            border: "none",
+            background: "#D7D8DE",
+            borderRadius: "20px 20px 0 0",
+          }}
+        >
           <Modal.Title
             style={{
               margin: "1vw 6vw 0 7vw",
               fontWeight: "bold",
               fontSize: "2vw",
-              
             }}
           >
             Volunteer Registration
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{ background: "#D7D8DE", padding: "0 10vw 0 10vw" ,borderRadius:"0 0 20px 20px"}}>
+        <Modal.Body
+          style={{
+            background: "#D7D8DE",
+            padding: "0 10vw 0 10vw",
+            borderRadius: "0 0 20px 20px",
+          }}
+        >
           <div>
             <TextField
               style={{
-                
                 marginBottom: "0.5vw",
                 marginTop: "-1vw",
               }}
@@ -98,7 +114,7 @@ const AddNewVolunteer = (props) => {
                 style: {
                   width: "20vw",
                   textAlign: "center",
-                  letterSpacing:"0.3vw"
+                  letterSpacing: "0.3vw",
                 },
               }}
               placeholder="Name"
@@ -110,14 +126,13 @@ const AddNewVolunteer = (props) => {
             <br />
             <TextField
               style={{
-                
                 marginBottom: "0.5vw",
               }}
               inputProps={{
                 style: {
                   width: "20vw",
                   textAlign: "center",
-                  letterSpacing:"0.3vw"
+                  letterSpacing: "0.3vw",
                 },
               }}
               placeholder="Contact Number"
@@ -129,14 +144,13 @@ const AddNewVolunteer = (props) => {
             <br />
             <TextField
               style={{
-                
                 marginBottom: "2vw",
               }}
               inputProps={{
                 style: {
                   width: "20vw",
                   textAlign: "center",
-                  letterSpacing:"0.3vw"
+                  letterSpacing: "0.3vw",
                 },
               }}
               placeholder="Aadhaar Number"
@@ -148,14 +162,13 @@ const AddNewVolunteer = (props) => {
             <br />
             <TextField
               style={{
-                
                 marginBottom: "1.5vw",
               }}
               inputProps={{
                 style: {
                   width: "20vw",
                   textAlign: "center",
-                  letterSpacing:"0.3vw"
+                  letterSpacing: "0.3vw",
                 },
               }}
               placeholder="Address"
@@ -168,7 +181,6 @@ const AddNewVolunteer = (props) => {
             <FormLabel component="legend">Upload Image</FormLabel>
             <TextField
               style={{
-                
                 marginBottom: "1vw",
               }}
               inputProps={{
@@ -246,7 +258,6 @@ const AddNewVolunteer = (props) => {
             Cancel
           </Button>
         </Modal.Body>
-        
       </Modal>
     </>
   );

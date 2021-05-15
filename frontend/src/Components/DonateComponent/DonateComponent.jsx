@@ -1,7 +1,9 @@
 import React from "react";
 import { Button } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 
 const DonateComponent = () => {
+  const history = useHistory();
   return (
     <>
       <div
@@ -67,6 +69,7 @@ const DonateComponent = () => {
                 fontSize: "1.2vw",
                 color: "#707070",
               }}
+              onClick={() => history.push("/donatePoor")}
             >
               Donate
             </Button>

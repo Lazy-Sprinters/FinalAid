@@ -12,11 +12,12 @@ import {Edit} from '@material-ui/icons'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: "47%",
+    minWidth: "90%",
     borderRadius: "20px",
     background: "#D7D8DE 0% 0% no-repeat padding-box",
     color: "#000000",
     font: "Segoe UI",
+    margin:"2.5vw 0 2.5vw 0"
   },
   expand: {
     transform: "rotate(0deg)",
@@ -35,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CardComponent({ User,onEdit}) {
+export default function CardComponent({ value,flag,onEdit}) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -43,42 +44,44 @@ export default function CardComponent({ User,onEdit}) {
     setExpanded(!expanded);
   };
 
-  const previewUser = (User) => {
-    // selectUser(User);
-    //Open Modal ->> respective
-    //Common Modal -> Before Pics || After Pics || Worker Name & PhoneNumber
-    //> Active   : Before Pics || Reject with reason -> No worker has solved it yet
-    //> Pending  : Common Modal -> waiting for approval of work
-    //> Resolved : Common Modal -> for auditing only
-  };
 
-  const data = User;
-  const name = User.name;
-  const contactNo = User.contactNo;
-  const aadhaarNo = User.aadhaarNo;
-  const address = User.address;
-  const image = User.image;
+  const data = value;
+  const name = value.name;
+  const contactNo = value.contactNo;
+  const aadhaarNo = value.aadhaarNo;
+  const address = value.address;
+  const image = value.image;
   return (
     <Card className={classes.root}>
       <CardContent
         style={{ width: "100%", textAlign: "left", font: "Segoe UI" }}
       >
-        <Typography style={{ fontSize: "1.5vw" }}>
-          <b>Name:</b> {name}
+      <div className="row">
+      <div style={{letterSpacing:"0.1vw",margin:" 3vw 5vw 0 5vw"}}>
+        <Typography style={{ fontSize: "1.5vw" ,margin:"2vw 0 4vw 0"}}>
+          <b>Name: </b> {name}
         </Typography>
-        <Typography style={{ fontSize: "1.5vw" }}>
-          <b>Address:</b> {address}
+        <Typography style={{ fontSize: "1.5vw" ,margin:" 2vw 0 4vw 0"}}>
+          <b>Address: </b> {address}
         </Typography>
-        <Typography style={{ fontSize: "1.5vw" }}>
-          <b>Aadhaar Number:</b> {aadhaarNo}
-        </Typography>
-        <Typography style={{ fontSize: "1.5vw" }}>
-          <b>Contact:</b> {contactNo}
-        </Typography>
-        <div style={{ width: "5vw", height: "5vw" }}>
-          <img style={{ width: "100%", height: "100%" }} src={image} />
         </div>
-        <Edit onCLick={() => {onEdit(data)}}/>
+        <div style={{letterSpacing:"0.1vw",margin:" 3vw 5vw 0 5vw"}}>
+        <Typography style={{ fontSize: "1.5vw" ,margin:" 2vw 0 4vw 0" }}>
+          <b>Aadhaar Number: </b> {aadhaarNo}
+        </Typography>
+        <Typography style={{ fontSize: "1.5vw" ,margin:" 2vw 0 4vw 0" }}>
+          <b>Contact: </b> {contactNo}
+        </Typography>
+        </div>
+        { flag &&
+        <>
+        <div style={{ width: "15vw", height: "15vw",margin:" 2vw 0 2vw 8vw" ,borderRadius:"20px"}}>
+          <img style={{ width: "100%", height: "100%",borderRadius:"20px" }} src={image} />
+        </div>
+        <Edit style={{margin:"0 0 0 3vw" ,cursor:"pointer"}}onCLick={() => {onEdit(data)}}/>
+        </>}
+        </div>
+        
       </CardContent>
     </Card>
   );

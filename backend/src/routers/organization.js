@@ -13,13 +13,6 @@ const {firestore}=require('firebase-admin');
 
 require('dotenv').config({path:path.resolve(__dirname,'../../.env')})
 
-const transporter=nodemailer.createTransport({
-      service: process.env.SERVICE,
-      auth:{
-            user:process.env.TEST_MAIL,
-            pass:process.env.TEST_PASS
-      }
-});
 
 const GetOtp = () => {
       let val = Math.floor(Math.random() * 1000000);
@@ -247,6 +240,7 @@ router.post('/newworker',async(req,res)=>{
 
 router.post('/allhelpers',async(req,res)=>{
       try{
+            // console.log(req.body);
             const snapshothelper=await db.collection("Organization").doc(req.body.user.id).collection('Helper').get();
             if (snapshothelper.empty)
             {
@@ -263,6 +257,7 @@ router.post('/allhelpers',async(req,res)=>{
                               ...element.data()
                         })
                   });      
+                  // console.log(ret.length);
                   res.send({
                         success: true,
                         code: 200,

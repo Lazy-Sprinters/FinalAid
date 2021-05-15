@@ -38,7 +38,7 @@ router.post("/register",async(req,res)=>{
                   status:((req.body.type=="crematorium")?"Busy":"Not Applicable"),
                   noofworker:0
             }
-            console.log(orgdata);
+            // console.log(orgdata);
             
             await db.collection("Organization").add(orgdata);
             
@@ -52,7 +52,7 @@ router.post("/register",async(req,res)=>{
             })
 
       }catch(err){
-            console.log(err.message);
+            // console.log(err.message);
             res.send({
                   success: false,
                   code: 400,
@@ -118,7 +118,32 @@ router.post("/login",async(req,res)=>{
 
 router.post('/search',async (req,res)=>{
       try{
-
+            const snapshot=await db.collection('Organization').where('district','==',req.body.data.district).get();
+            if (snapshot.empty)
+            {      
+                  res.send({
+                        success: false,
+                        code: 404,
+                        message: "No Matching Centres are registered with out!",
+                        response: null
+                  });
+            }else{
+                  const data=[];
+                  snapshot.forEach(org => {
+                        data.push({                              
+                              ...org.data(),
+                              id:org.id
+                        });
+                        delete data[data.length-1].tokens;
+                        delete data[data.length-1].password;
+                  });      
+                  res.send({
+                        success: true,
+                        code: 200,
+                        message: "Success",
+                        response: data
+                  });
+            }
       }catch(err){
             res.send({
                   success: false,
@@ -128,5 +153,7 @@ router.post('/search',async (req,res)=>{
             });
       }
 })
+
+
 
 module.exports=router

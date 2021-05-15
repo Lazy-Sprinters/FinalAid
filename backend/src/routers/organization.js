@@ -7,6 +7,7 @@ const db=require('../dbconfig/firebase');
 const bucket=require('../dbconfig/storage');
 const nodemailer=require('nodemailer')
 const jwt=require('jsonwebtoken');
+const dtime=require('node-datetime');
 const {firestore}=require('firebase-admin');
 
 require('dotenv').config({path:path.resolve(__dirname,'../../.env')})
@@ -19,6 +20,13 @@ const transporter=nodemailer.createTransport({
       }
 });
 
+const GetOtp = () => {
+      let val = Math.floor(Math.random() * 1000000);
+      if (val.toString().length == 5) {
+            val *= 10;
+      }
+      return val;
+};
 
 
 router.post("/register",async(req,res)=>{
@@ -26,6 +34,7 @@ router.post("/register",async(req,res)=>{
             const response=await axios.get(`https://api.postalpincode.in/pincode/${req.body.pincode}`)
             const hash=await bcrypt.hash(req.body.password,8);
             const orgdata={
+                  name:req.body.name,
                   email:req.body.email,
                   phoneNo:req.body.phoneNo,
                   address:req.body.address,
@@ -36,9 +45,14 @@ router.post("/register",async(req,res)=>{
                   password:hash,
                   type:req.body.type,
                   status:((req.body.type=="crematorium")?"Busy":"Not Applicable"),
-                  noofworker:0
+                  noofworker:0,
+                  bankAccNo:"",
+                  CifNo:"",
+                  BankName:"",
+                  bankbranchCode:"",
+                  basiccost:2000
             }
-            // console.log(orgdata);
+            console.log(orgdata);
             
             await db.collection("Organization").add(orgdata);
             
@@ -52,7 +66,7 @@ router.post("/register",async(req,res)=>{
             })
 
       }catch(err){
-            // console.log(err.message);
+            console.log(err);
             res.send({
                   success: false,
                   code: 400,
@@ -91,6 +105,7 @@ router.post("/login",async(req,res)=>{
                               id:userid
                         };
                         delete resuserdata.tokens; 
+                        delete resuserdata.password; 
                         res.send({
                               success: true,
                               code: 200,
@@ -154,6 +169,124 @@ router.post('/search',async (req,res)=>{
       }
 })
 
+router.post('/newworker',async(req,res)=>{
+      try{
 
+            
+
+
+
+            const data={
+                  name:req.body.data.name,
+                  aadhaarId:req.body.data.aadhaarId,
+                  bplId:req.body.data.bplId,
+                  deceasedName:req.body.data.deceasedName,
+                  deceasedAid:req.body.data.deceasedAid,
+                  ownerid:req.body.user.id,
+                  ownerName:req.body.user.name
+            }
+
+
+            const batch=db.batch();
+
+            const orgref=db.collection("Organization").doc(req.body.user.id).collection("Helper").doc(req.body.data.aadhaarId);
+            const orgref1=db.collection("Organization").doc(req.body.user.id);
+
+            batch.set(orgref,data);
+            batch.update(orgref1,{noofworker:firebase.FieldValue.increment(1)});
+
+            await batch.commit();
+
+            const data1=await db.collection("Organization").doc().get();
+
+            if (!data1.exists)
+            {      
+                  res.send({
+                        success: true,
+                        code: 200,
+                        message: "No worker found!",
+                        response: []
+                  })
+            }
+            let ret=[]
+            data1.forEach(element => {
+                  ret
+            });
+
+            res.send({
+                  success: false,
+                  code: 400,
+                  message: err.message,
+                  response: null
+            })
+
+      }catch(err){
+            res.send({
+                  success: false,
+                  code: 400,
+                  message: err.message,
+                  response: null
+            });
+      }
+})
+
+router.post('/newfundreq',async(req,res)=>{
+      try{
+            // console.log(req.body);
+            const data={
+                  name:req.body.data.name,
+                  aadhaarId:req.body.data.aadhaarId,
+                  bplId:req.body.data.bplId,
+                  deceasedName:req.body.data.deceasedName,
+                  deceasedAid:req.body.data.deceasedAid,
+                  Raiserid:req.body.user.id,
+                  RaiserName:req.body.user.name,
+                  alloted:false,
+                  procured:false
+            }
+            
+            await db.collection("Requests").add(data);
+            
+            res.send({
+                  success: true,
+                  code: 201,
+                  message: "Request Raised Successfully",
+                  response: data
+            })
+
+      }catch(err){
+            res.send({
+                  success: false,
+                  code: 400,
+                  message: err.message,
+                  response: null
+            });
+      }
+});
+
+router.post('/updatestatus',async (req,res)=>{
+      try{
+            
+            await db.collection("Organization").doc(req.body.user.id).update({status:req.body.data.status});
+            const dt1=dtime.create();
+            const formatted=dt1.format('Y-m-d H:M:S');
+            res.send({
+                  success: true,
+                  code: 201,
+                  message: "Status Updated Successfully",
+                  response: {
+                        ts:formatted
+                  }
+            })
+
+      }catch(err){
+            res.send({
+                  success: false,
+                  code: 400,
+                  message: err.message,
+                  response: null
+            });
+      }
+})
 
 module.exports=router

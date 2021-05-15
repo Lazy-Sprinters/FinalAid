@@ -5,7 +5,8 @@ const path=require("path");
 const bcrypt=require('bcryptjs');
 const db=require('../dbconfig/firebase');
 const bucket=require('../dbconfig/storage');
-const nodemailer=require('nodemailer')
+const nodemailer=require('nodemailer');
+const fs=require('fs');
 const jwt=require('jsonwebtoken');
 const dtime=require('node-datetime');
 const {firestore}=require('firebase-admin');
@@ -171,56 +172,67 @@ router.post('/search',async (req,res)=>{
 
 router.post('/newworker',async(req,res)=>{
       try{
+            const image=req.body.data.image;
+            const flag=GetOtp().toString();
+            let type="";
+            for (let i = 6; i < req.body.data.imageType.length; i++) {
+                  type += req.body.data.imageType[i];
+            }     
+            fs.writeFileSync(
+                  path.resolve(__dirname, `../public/${flag}.${type}`),
+                  image,
+                  "base64"
+            );
+            const options = {
+                  version: "v4",
+                  action: "read",
+                  expires: Date.now() + 10005 * 60 * 1000, // 10005 minutes
+            };
+            const updpic = new Uint8Array(
+                  fs.readFileSync(path.resolve(__dirname, `../public/${flag}.${type}`))
+            );
 
-            
-
-
-
+            const file1=bucket.file(`HelperPic/${flag}`);
+            await file1.save(updpic, {
+                  resumable: false,
+                  metadata: { contentType: "image/" + type },
+            });
+            const url = await file1.getSignedUrl(options);
+            fs.unlinkSync(path.resolve(__dirname, `../public/${flag}.${type}`));
             const data={
                   name:req.body.data.name,
-                  aadhaarId:req.body.data.aadhaarId,
-                  bplId:req.body.data.bplId,
-                  deceasedName:req.body.data.deceasedName,
-                  deceasedAid:req.body.data.deceasedAid,
+                  contactNo:req.body.data.contactNo,
+                  aadhaarNo:req.body.data.aadhaarNo,
+                  address:req.body.data.address,
                   ownerid:req.body.user.id,
-                  ownerName:req.body.user.name
+                  ownerName:req.body.user.name,
+                  image:url[0]
             }
-
 
             const batch=db.batch();
 
-            const orgref=db.collection("Organization").doc(req.body.user.id).collection("Helper").doc(req.body.data.aadhaarId);
+            const orgref=db.collection("Organization").doc(req.body.user.id).collection("Helper").doc(req.body.data.aadhaarNo);
             const orgref1=db.collection("Organization").doc(req.body.user.id);
 
             batch.set(orgref,data);
-            batch.update(orgref1,{noofworker:firebase.FieldValue.increment(1)});
+            batch.update(orgref1,{noofworker:firestore.FieldValue.increment(1)});
 
             await batch.commit();
 
-            const data1=await db.collection("Organization").doc().get();
-
-            if (!data1.exists)
-            {      
-                  res.send({
-                        success: true,
-                        code: 200,
-                        message: "No worker found!",
-                        response: []
-                  })
-            }
+            const data1=await db.collection("Organization").doc(req.body.user.id).collection("Helper").get();
             let ret=[]
             data1.forEach(element => {
-                  ret
+                  ret.push(element.data());
             });
-
+            console.log(ret);
             res.send({
-                  success: false,
-                  code: 400,
-                  message: err.message,
-                  response: null
+                  success: true,
+                  code: 200,
+                  message: "Workers fetched successfully",
+                  response: ret
             })
-
       }catch(err){
+            console.log(err);
             res.send({
                   success: false,
                   code: 400,
@@ -232,7 +244,7 @@ router.post('/newworker',async(req,res)=>{
 
 router.post('/newfundreq',async(req,res)=>{
       try{
-            // console.log(req.body);
+            console.log(req.body);
             const data={
                   name:req.body.data.name,
                   aadhaarId:req.body.data.aadhaarId,
@@ -246,7 +258,7 @@ router.post('/newfundreq',async(req,res)=>{
             }
             
             await db.collection("Requests").add(data);
-            
+            console.log(data);
             res.send({
                   success: true,
                   code: 201,
@@ -255,6 +267,7 @@ router.post('/newfundreq',async(req,res)=>{
             })
 
       }catch(err){
+            console.log(err);
             res.send({
                   success: false,
                   code: 400,

@@ -1,6 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
+import Axios from "axios"
 import {
   TextField,
   Checkbox,
@@ -19,9 +20,26 @@ const LoginModal = (props) => {
       password,
     };
     console.log(data);
+    Axios.post("http://localhost:5000/org/login",data)
+        .then((res) => {
+            if(res.data.success){
+                console.log("Proceeding to Home Page");
+                console.log(res.data.response)
+                
     props.onHide();
     history.push("/admin")
+                // dispatch({type:actionTypes.CHANGE_USER , user:res.data.response})
+                /*On success ->*/ history.push('/admin');
+            }
+            else{
+                console.log(res.data.message)
+            }
+        })
+        .catch((err) => {
+          console.log("Axios", err);
+        });
     //API Call
+
   };
   return (
     <>

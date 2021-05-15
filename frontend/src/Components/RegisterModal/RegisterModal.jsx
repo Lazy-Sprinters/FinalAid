@@ -1,6 +1,8 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import { TextField, Checkbox, FormControlLabel } from "@material-ui/core";
+import Axios from "axios"
+
 
 const RegisterModal = (props) => {
   const [modalShow, setModalShow] = React.useState(false);
@@ -11,7 +13,7 @@ const RegisterModal = (props) => {
   const [deceasedAid, setDeceasedAid] = React.useState("");
   const [undertaking, setUndertaking] = React.useState(false);
   const [verified, setVerified] = React.useState(false);
-  const register = () => {
+  const register = (props) => {
     const data = {
       name,
       aadhaarId,
@@ -21,8 +23,24 @@ const RegisterModal = (props) => {
       undertaking,
       verified,
     };
+    const x={data:data}
     console.log(data);
     //API Call
+    Axios.post("http://localhost:5000/org/newfundreq",x)
+        .then((res) => {
+            if(res.data.success){
+                console.log("Regestering");
+                console.log(res.data.response)
+                props.onHide();
+                // dispatch({type:actionTypes.CHANGE_USER , user:res.data.response})
+            }
+            else{
+                console.log(res.data.message)
+            }
+        })
+        .catch((err) => {
+          console.log("Axios", err);
+        });
   };
   return (
     <>

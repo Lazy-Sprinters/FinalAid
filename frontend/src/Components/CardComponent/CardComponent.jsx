@@ -57,15 +57,20 @@ export default function CardComponent({User,selectUser}) {
     <Card className={classes.root}>
       <CardContent style={{width:"100%",textAlign:"left",font: 'Segoe UI'}}>
         <Typography style={{fontSize:"1.5vw"}}>
-          <b>Title:</b> {title}
+          <b>Name:</b> {title}
         </Typography>
         <Typography style={{fontSize:"1.5vw"}}>
-          <b>Complainant Phone Number:</b> {phoneNo}
+          <b>Employee ID:</b> {phoneNo}
         </Typography>
         <Typography style={{fontSize:"1.5vw"}}>
           <b>Address:</b> {address}
         </Typography>
-        
+        <Typography style={{fontSize:"1.5vw"}}>
+          <b>Aadhaar Number:</b> {address}
+        </Typography>
+        <Typography style={{fontSize:"1.5vw"}}>
+          <b>Contact:</b> {address}
+        </Typography>
       </CardContent>
       <div       
         style={{ 

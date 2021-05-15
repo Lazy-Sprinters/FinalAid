@@ -44,7 +44,7 @@ router.post("/register",async(req,res)=>{
                   CifNo:"",
                   BankName:"",
                   bankbranchCode:"",
-                  basiccost:2000,
+                  basiccost:2000,/* to be taken from the user */
                   ts:"Not updated till now"
             }
             // console.log(orgdata);
@@ -52,7 +52,7 @@ router.post("/register",async(req,res)=>{
             await db.collection("Organization").add(orgdata);
             
             //send email functionality // if success
-            
+            delete orgdata.password;
             res.send({
                   success: true,
                   code: 201,
@@ -290,7 +290,8 @@ router.post('/newfundreq',async(req,res)=>{
                   RaiserName:req.body.user.name,
                   alloted:false,
                   procured:false,
-                  notificationssned:false
+                  notificationssned:false,
+                  procuredAmount:0
             }
             
             await db.collection("Requests").add(data);

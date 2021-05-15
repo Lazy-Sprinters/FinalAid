@@ -45,7 +45,7 @@ router.post("/register",async(req,res)=>{
                   BankName:"",
                   bankbranchCode:"",
                   basiccost:2000,/* to be taken from the user */
-                  ts:"Not updated till now"
+                  ts:"Not updated till now",
             }
             // console.log(orgdata);
             
@@ -292,6 +292,7 @@ router.post('/newfundreq',async(req,res)=>{
                   procured:false,
                   notificationssned:false,
                   procuredAmount:0,
+                  basiccost:req.body.user.basiccost,
                   ts:firestore.Timestamp.now()
             }
             

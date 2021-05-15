@@ -105,6 +105,7 @@ setInterval(async () => {
     {
       // there are some pending requests waiting for funds
       const masteracc=await db.collection(process.env.CNAME).doc(process.env.ID1).get();
+      let curraccountbalance=masteracc.data().Balance
       let data=[];
       requirements.forEach(element => {
         data.push({
@@ -112,9 +113,18 @@ setInterval(async () => {
           id:element.id
         });
       });
-      console.log(data);
+      //Upon verification of GST Number with stripe account a proper banking portal reference can be used here
+      // console.log(data);
+      for(let i=0;i<data.length;i++){
+        if (curraccountbalance>=data[i].basiccost-data[i].procuredAmount){
+          curraccountbalance-=(data[i].basiccost-data[i].procuredAmount);
+          const updref=await db.collection('Requests').doc(data[i].id).update("alloted",true);
+          console.log(`fund allotted to id ${data[i].id}`);
+        }
+      }
+      const updref1=await db.collection(process.env.CNAME).doc(process.env.ID1).update('Balance',curraccountbalance);
     }
   } catch (err) {
     console.log(err);
   }
-}, 1000);//every 10 mins
+}, 10000);//every 10 mins

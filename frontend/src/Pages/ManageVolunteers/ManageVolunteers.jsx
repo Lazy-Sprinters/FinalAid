@@ -14,6 +14,7 @@ import {
   FormLabel,
 } from "@material-ui/core";
 import AdminNavbar from "../../Components/AdminNavbar/AdminNavbar";
+import FailureResponse from "../../Components/FailureResponse/FailureResponse";
 
 const ManageVolunteers = () => {
   const [modalShow1, setModalShow1] = React.useState(false);
@@ -25,16 +26,24 @@ const ManageVolunteers = () => {
   const token = useSelector((state) => state.token);
   const dispatch = useDispatch();
   const history = useHistory();
+  const [failure, setFailure] = React.useState(false);
 
   const displayVolunteer = (data1) => {
     const code = [];
-    console.log(data1)
+    if(data1==null || data1.length==0){
+      setFailure(true);
+    }
     // console.log(data.length)
     data1.map((value) => {
-      code.push(<CardComponent value={value} flag={true} onEdit={editVolunteer} />);
+      code.push(<CardComponent value={value} flag={true} onEdit={editVolunteer} donate={0}/>);
     });
     setShowVolunteers(code);
   };
+
+  const failed = () =>{
+    setFailure(false);
+    history.push("/admin")
+  }
 
   const search = () => {
     const data = { name };
@@ -51,6 +60,8 @@ const ManageVolunteers = () => {
           // dispatch({type:actionTypes.CHANGE_USER , user:res.data.response.user})
         } else {
           console.log(res.data.message);
+          // setFailure(false);
+          // history.push("/admin")
         }
       })
       .catch((err) => {
@@ -103,6 +114,12 @@ const ManageVolunteers = () => {
         onHide={() => setModalShow1(false)}
         size="lg"
       />
+      <FailureResponse 
+        show={failure}
+        onHide ={() => failed()}
+        size="lg"
+      />
+      
       <div className="row" style={{ margin: "2vw 40vw 3vw 40vw" }}>
         <TextField
           style={{

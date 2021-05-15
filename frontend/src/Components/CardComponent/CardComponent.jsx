@@ -8,7 +8,7 @@ import {
   Avatar,
   Typography,
 } from "@material-ui/core";
-import {Edit} from '@material-ui/icons'
+import { Edit } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     background: "#D7D8DE 0% 0% no-repeat padding-box",
     color: "#000000",
     font: "Segoe UI",
-    margin:"2.5vw 0 2.5vw 0"
+    margin: "2.5vw 0 2.5vw 0",
   },
   expand: {
     transform: "rotate(0deg)",
@@ -36,53 +36,94 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CardComponent({ value,flag,onEdit}) {
+export default function CardComponent({ value, flag, onEdit ,donate}) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  if (flag) {
+    const data = value;
+    const name = value.name;
+    const contactNo = value.contactNo;
+    const aadhaarNo = value.aadhaarNo;
+    const address = value.address;
+    const image = value.image;
+    return (
+      <Card className={classes.root}>
+        <CardContent
+          style={{ width: "100%", textAlign: "left", font: "Segoe UI" }}
+        >
+          <div className="row">
+            <div style={{ letterSpacing: "0.1vw", margin: " 3vw 5vw 0 5vw" }}>
+              <Typography style={{ fontSize: "1.5vw", margin: "2vw 0 4vw 0" }}>
+                <b>Name: </b> {name}
+              </Typography>
+              <Typography style={{ fontSize: "1.5vw", margin: " 2vw 0 4vw 0" }}>
+                <b>Address: </b> {address}
+              </Typography>
+            </div>
+            <div style={{ letterSpacing: "0.1vw", margin: " 3vw 5vw 0 5vw" }}>
+              <Typography style={{ fontSize: "1.5vw", margin: " 2vw 0 4vw 0" }}>
+                <b>Aadhaar Number: </b> {aadhaarNo}
+              </Typography>
+              <Typography style={{ fontSize: "1.5vw", margin: " 2vw 0 4vw 0" }}>
+                <b>Contact: </b> {contactNo}
+              </Typography>
+            </div>
 
-
-  const data = value;
-  const name = value.name;
-  const contactNo = value.contactNo;
-  const aadhaarNo = value.aadhaarNo;
-  const address = value.address;
-  const image = value.image;
-  return (
-    <Card className={classes.root}>
-      <CardContent
-        style={{ width: "100%", textAlign: "left", font: "Segoe UI" }}
-      >
-      <div className="row">
-      <div style={{letterSpacing:"0.1vw",margin:" 3vw 5vw 0 5vw"}}>
-        <Typography style={{ fontSize: "1.5vw" ,margin:"2vw 0 4vw 0"}}>
-          <b>Name: </b> {name}
-        </Typography>
-        <Typography style={{ fontSize: "1.5vw" ,margin:" 2vw 0 4vw 0"}}>
-          <b>Address: </b> {address}
-        </Typography>
-        </div>
-        <div style={{letterSpacing:"0.1vw",margin:" 3vw 5vw 0 5vw"}}>
-        <Typography style={{ fontSize: "1.5vw" ,margin:" 2vw 0 4vw 0" }}>
-          <b>Aadhaar Number: </b> {aadhaarNo}
-        </Typography>
-        <Typography style={{ fontSize: "1.5vw" ,margin:" 2vw 0 4vw 0" }}>
-          <b>Contact: </b> {contactNo}
-        </Typography>
-        </div>
-        { flag &&
-        <>
-        <div style={{ width: "15vw", height: "15vw",margin:" 2vw 0 2vw 8vw" ,borderRadius:"20px"}}>
-          <img style={{ width: "100%", height: "100%",borderRadius:"20px" }} src={image} />
-        </div>
-        <Edit style={{margin:"0 0 0 3vw" ,cursor:"pointer"}}onCLick={() => {onEdit(data)}}/>
-        </>}
-        </div>
-        
-      </CardContent>
-    </Card>
-  );
+            <div
+              style={{
+                width: "15vw",
+                height: "15vw",
+                margin: " 2vw 0 2vw 8vw",
+                borderRadius: "20px",
+              }}
+            >
+              <img
+                style={{ width: "100%", height: "100%", borderRadius: "20px" }}
+                src={image}
+              />
+            </div>
+            <Edit
+              style={{ margin: "0 0 0 3vw", cursor: "pointer" }}
+              onCLick={() => {
+                onEdit(data);
+              }}
+            />
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+  else{
+    const data = value;
+    const RaiserName = value.RaiserName;
+    const deceasedName = value.deceasedName;
+    const reqAmount = value.reqAmount;
+    return (
+      <Card className={classes.root} onClick={() => donate(data)}>
+        <CardContent
+          style={{ width: "100%", textAlign: "left", font: "Segoe UI" }}
+        >
+          <div className="row">
+            <div style={{ letterSpacing: "0.1vw", margin: " 3vw 5vw 0 5vw" }}>
+              <Typography style={{ fontSize: "1.5vw", margin: "2vw 0 4vw 0" }}>
+                <b>Deceased Name: </b> {deceasedName}
+              </Typography>
+              <Typography style={{ fontSize: "1.5vw", margin: " 2vw 0 4vw 0" }}>
+                <b>Raiser Name: </b> {RaiserName}
+              </Typography>
+            </div>
+            <div style={{ letterSpacing: "0.1vw", margin: " 3vw 5vw 0 5vw" }}>
+              <Typography style={{ fontSize: "1.5vw", margin: " 2vw 0 4vw 0" }}>
+                <b>Required Amount: </b> {reqAmount}
+              </Typography>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
 }

@@ -4,6 +4,7 @@ import { TextField, Checkbox, FormControlLabel } from "@material-ui/core";
 import Axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import "./RegisterModal.css"
+import SuccessResponse from "../SuccessResponse/SuccessResponse";
 
 const RegisterModal = (props) => {
   const [modalShow, setModalShow] = React.useState(false);
@@ -16,6 +17,7 @@ const RegisterModal = (props) => {
   const [verified, setVerified] = React.useState(false);
   const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
+  const [success, setSuccess] = React.useState(false);
 
   const register = () => {
     const data = {
@@ -36,6 +38,7 @@ const RegisterModal = (props) => {
           console.log("Registering");
           console.log(res.data.response);
           props.onHide();
+          setSuccess(true)
           // dispatch({type:actionTypes.CHANGE_USER , user:res.data.response})
         } else {
           console.log(res.data.message);
@@ -47,6 +50,11 @@ const RegisterModal = (props) => {
   };
   return (
     <>
+    <SuccessResponse
+        show={success}
+        onHide ={() => setSuccess(false)}
+        size="lg"
+      />
       <Modal
         show={props.show}
         onHide={props.onHide}

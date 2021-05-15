@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 import "./AddNewVolunteer.css";
 import { useDispatch, useSelector } from "react-redux";
+import SuccessResponse from "../SuccessResponse/SuccessResponse";
 
 const AddNewVolunteer = (props) => {
   const [modalShow, setModalShow] = React.useState(false);
@@ -22,6 +23,7 @@ const AddNewVolunteer = (props) => {
   const [imageType, setImageType] = React.useState("");
   const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
+  const [success, setSuccess] = React.useState(false);
 
   const handleBase64 = (e) => {
     let binaryString = e.target.result;
@@ -35,7 +37,8 @@ const AddNewVolunteer = (props) => {
     reader.readAsBinaryString(e.target.files[0]);
   };
 
-  const register = () => {
+
+  const add = () => {
     const data = {
       name,
       contactNo,
@@ -53,9 +56,10 @@ const AddNewVolunteer = (props) => {
     Axios.post("http://localhost:5000/org/newworker", x)
       .then((res) => {
         if (res.data.success) {
-          console.log("Regestering");
+          console.log("Registering");
           console.log(res.data.response);
           props.onHide();
+          setSuccess(true);
           // dispatch({type:actionTypes.CHANGE_USER , user:res.data.response})
         } else {
           console.log(res.data.message);
@@ -73,6 +77,11 @@ const AddNewVolunteer = (props) => {
   );
   return (
     <>
+    <SuccessResponse
+        show={success}
+        onHide ={() => setSuccess(false)}
+        size="lg"
+      />
       <Modal
         show={props.show}
         onHide={props.onHide}
@@ -236,7 +245,7 @@ const AddNewVolunteer = (props) => {
               color: "#707070",
               marginBottom: "1vw",
             }}
-            onClick={() => register()}
+            onClick={() => add()}
           >
             Submit
           </Button>

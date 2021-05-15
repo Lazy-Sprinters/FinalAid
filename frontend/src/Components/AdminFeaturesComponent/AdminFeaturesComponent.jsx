@@ -7,9 +7,11 @@ import { useDispatch, useSelector } from "react-redux";
 import Axios from "axios";
 import * as actionTypes from '../../actions/actions';
 
+
 const AdminFeaturesComponent = () => {
   const [modalShow, setModalShow] = React.useState(false);
   const [modalShow1, setModalShow1] = React.useState(false);
+
   const [time, setTime] = React.useState("");
   const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
@@ -70,6 +72,7 @@ const AdminFeaturesComponent = () => {
         onHide={() => setModalShow1(false)}
         size="lg"
       />
+      
       <div
         style={{
           background: "white",

@@ -9,6 +9,7 @@ import {
   Select,
   TextField,
 } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 
 const AdminRegisterPage = () => {
   const [displayStates, setDisplayStates] = React.useState("");
@@ -58,6 +59,7 @@ const AdminRegisterPage = () => {
   const [state1, setState1] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [type, setType] = React.useState("");
+  const history = useHistory();
 
   const register = () => {
     const data = {
@@ -77,7 +79,7 @@ const AdminRegisterPage = () => {
                 console.log("Registering the user");
                 console.log(res.data.response)
                 // dispatch({type:actionTypes.CHANGE_USER , user:res.data.response})
-                // /*On success ->*/ history.push('/homePage');
+                /*On success ->*/ history.push('/login');
             }
             else{
                 console.log(res.data.message)

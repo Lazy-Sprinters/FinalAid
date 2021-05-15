@@ -5,10 +5,12 @@ import Axios from "axios"
 import {
   TextField,
 } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 
 const AdminRegisterPage = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const history = useHistory();
 
   const login = () => {
     const data = {
@@ -22,7 +24,7 @@ const AdminRegisterPage = () => {
                 console.log("Proceeding to Home Page");
                 console.log(res.data.response)
                 // dispatch({type:actionTypes.CHANGE_USER , user:res.data.response})
-                // /*On success ->*/ history.push('/homePage');
+                /*On success ->*/ history.push('/admin');
             }
             else{
                 console.log(res.data.message)

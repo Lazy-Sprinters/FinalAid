@@ -82,7 +82,7 @@ const DonateComponent = () => {
             <img src="1" />
           </div>
         </div>
-        <div className="row" style={{ margin: "2vw 0 0 34vw", width: "65vw" }}>
+        <div className="row" style={{ margin: "2vw 0 0 34vw", width: "64vw" }}>
           <div
             style={{
               width: "30vw",
@@ -96,8 +96,8 @@ const DonateComponent = () => {
           </div>
           <div
             style={{
-              width: "43.5vw",
-              margin: "3.5vw 0 0 6vw",
+              width: "44vw",
+              margin: "3.5vw 0 0 5vw",
               height: "30vw",
               background: "#D7D8DE",
               padding: "2vw 2vw 0 14vw",

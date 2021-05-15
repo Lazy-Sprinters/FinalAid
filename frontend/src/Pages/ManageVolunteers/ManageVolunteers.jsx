@@ -9,6 +9,7 @@ import {
   FormControlLabel,
   FormLabel,
 } from "@material-ui/core";
+import AdminNavbar from "../../Components/AdminNavbar/AdminNavbar";
 
 const ManageVolunteers = () => {
   const [modalShow1, setModalShow1] = React.useState(false);
@@ -45,6 +46,7 @@ const ManageVolunteers = () => {
   }, []);
   return (
     <>
+    <AdminNavbar />
       <Helmet>
         <title>FinalAid | Manage Volunteers</title>
         <meta

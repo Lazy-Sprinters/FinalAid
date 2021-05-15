@@ -42,7 +42,7 @@ function Navbar1(props) {
               color: "white",
             }}
             as={Link}
-            to="/"
+            to="/admin"
             active
           ></Nav.Link>
         </Nav>
@@ -55,23 +55,10 @@ function Navbar1(props) {
             }}
             onClick={() => activeColor(0)}
             as={Link}
-            to="/"
+            to="/admin"
             active
           >
-            Home
-          </Nav.Link>
-          <Nav.Link
-            style={{
-              margin: "0 1vw",
-              font: "normal normal 600 20px/27px Segoe UI",
-              color: colors[1],
-            }}
-            onClick={() => activeColor(1)}
-            as={Link}
-            to="/"
-            active
-          >
-            About
+            Register
           </Nav.Link>
           <Nav.Link
             style={{
@@ -81,10 +68,10 @@ function Navbar1(props) {
             }}
             onClick={() => activeColor(2)}
             as={Link}
-            to="/"
+            to="/volunteers"
             active
           >
-            Donate
+            Volunteers
           </Nav.Link>
           <Nav.Link
             style={{
@@ -94,10 +81,10 @@ function Navbar1(props) {
             }}
             onClick={() => activeColor(3)}
             as={Link}
-            to="/"
+            to="/admin"
             active
           >
-            Search
+            Status
           </Nav.Link>
           <Nav.Link
             style={{
@@ -105,12 +92,11 @@ function Navbar1(props) {
               font: "normal normal 600 20px/27px Segoe UI",
               color: colors[3],
             }}
-            onClick={() => props.setModalShow(true)}
             as={Link}
             to="/"
             active
           >
-            Login as Admin
+            Logout
           </Nav.Link>
         </Nav>
       </Navbar.Collapse>

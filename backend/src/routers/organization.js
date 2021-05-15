@@ -245,6 +245,43 @@ router.post('/newworker',async(req,res)=>{
       }
 })
 
+router.post('/allhelpers',async(req,res)=>{
+      try{
+            const snapshothelper=await db.collection("Organization").doc(req.body.user.id).collection('Helper').get();
+            if (snapshothelper.empty)
+            {
+                  res.send({
+                        success: true,
+                        code: 200,
+                        message: "No Helpers Registered with us",
+                        response: []
+                  });
+            }else{
+                  let ret=[];
+                  snapshothelper.forEach(element => {
+                        ret.push({
+                              ...element.data()
+                        })
+                  });      
+                  res.send({
+                        success: true,
+                        code: 200,
+                        message: "Helpers fetched successfully",
+                        response: ret
+                  });
+            }
+      }catch(err){
+            console.log(err);
+            res.send({
+                  success: false,
+                  code: 400,
+                  message: err.message,
+                  response: null
+            });
+
+      }
+})
+
 router.post('/newfundreq',async(req,res)=>{
       try{
             // console.log(req.body);
@@ -257,7 +294,8 @@ router.post('/newfundreq',async(req,res)=>{
                   Raiserid:req.body.user.id,
                   RaiserName:req.body.user.name,
                   alloted:false,
-                  procured:false
+                  procured:false,
+                  notificationssned:false
             }
             
             await db.collection("Requests").add(data);

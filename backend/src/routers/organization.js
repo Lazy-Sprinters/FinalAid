@@ -291,7 +291,8 @@ router.post('/newfundreq',async(req,res)=>{
                   alloted:false,
                   procured:false,
                   notificationssned:false,
-                  procuredAmount:0
+                  procuredAmount:0,
+                  ts:firestore.Timestamp.now()
             }
             
             await db.collection("Requests").add(data);

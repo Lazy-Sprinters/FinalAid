@@ -81,7 +81,7 @@ router.post("/allopenrequests",async (req,res)=>{
                         ret.push({
                               ...ele.data(),
                               id:ele.id,
-                              reqAmount:req.body.user.basiccost-ele.data().procuredAmount
+                              reqAmount:2000-ele.data().procuredAmount
                         });
                   })
                   for(let i=0;i<ret.length;i++){

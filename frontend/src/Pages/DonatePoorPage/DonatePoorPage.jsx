@@ -43,22 +43,22 @@ const DonatePoorPage = () => {
   useEffect(() => {
     //Call Api
     const x = { user, token };
-//     Axios.post("http://localhost:5000/org/allorgs", x)
-//       .then((res) => {
-//         if (res.data.success) {
-//           console.log("Organisations displayed");
-//           console.log(res.data.response);
-//           //Store all organisation Data -> setOrganisationData();
-//           setOrganisationData(res.data.response);
-//           displayOrganisation(res.data.response)
-//           // dispatch({type:actionTypes.CHANGE_USER , user:res.data.response.user})
-//         } else {
-//           console.log(res.data.message);
-//         }
-//       })
-//       .catch((err) => {
-//         console.log("Axios", err);
-//       });
+    Axios.post("http://localhost:5000/donate/allopenrequests", x)
+      .then((res) => {
+        if (res.data.success) {
+          console.log("Organisations displayed");
+          console.log(res.data.response);
+          //Store all organisation Data -> setOrganisationData();
+          setOrganisationData(res.data.response);
+          displayOrganisation(res.data.response)
+          // dispatch({type:actionTypes.CHANGE_USER , user:res.data.response.user})
+        } else {
+          console.log(res.data.message);
+        }
+      })
+      .catch((err) => {
+        console.log("Axios", err);
+      });
   }, []);
   return (
     <>

@@ -51,7 +51,8 @@ router.post("/register",async(req,res)=>{
                   CifNo:"",
                   BankName:"",
                   bankbranchCode:"",
-                  basiccost:2000
+                  basiccost:2000,
+                  ts:"Not updated till now"
             }
             // console.log(orgdata);
             
@@ -107,6 +108,7 @@ router.post("/login",async(req,res)=>{
                         };
                         delete resuserdata.tokens; 
                         delete resuserdata.password; 
+                        // console.log(resuserdata,token);
                         res.send({
                               success: true,
                               code: 200,
@@ -280,20 +282,34 @@ router.post('/newfundreq',async(req,res)=>{
 
 router.post('/updatestatus',async (req,res)=>{
       try{
+            // console.log(req.body);
+            if (req.body.data==undefined){
+                  res.send({
+                        success: true,
+                        code: 201,
+                        message: "Status Updated Successfully",
+                        response: {
+                              ...req.body
+                        }
+                  });
+            }else{
             
-            await db.collection("Organization").doc(req.body.user.id).update({status:req.body.data.status});
             const dt1=dtime.create();
             const formatted=dt1.format('Y-m-d H:M:S');
+            const ret={...req.body};
+            ret.user.ts=formatted;
+            ret.user.status=req.body.data.status;
+            await db.collection("Organization").doc(req.body.user.id).update({status:req.body.data.status,ts:formatted});
+            
             res.send({
                   success: true,
                   code: 201,
                   message: "Status Updated Successfully",
-                  response: {
-                        ts:formatted
-                  }
+                  response: ret
             })
-
+      }
       }catch(err){
+            // console.log(err.message);
             res.send({
                   success: false,
                   code: 400,

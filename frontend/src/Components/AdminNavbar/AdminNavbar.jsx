@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 
 function Navbar1(props) {
   const [colors, setColors] = React.useState([
@@ -10,6 +11,7 @@ function Navbar1(props) {
     "white",
     "white",
   ]);
+  const history = useHistory();
 
   const activeColor = (x) => {
     // let currcolors=["#2D7B90","#2D7B90","#2D7B90","#2D7B90","#2D7B90"];
@@ -17,6 +19,9 @@ function Navbar1(props) {
     // setColors(currcolors);
   };
 
+  const logout = (e) =>{
+    window.localStorage.clear();
+  }
   return (
     <Navbar
       style={{ backgroundColor: "black", width: "100%" }}
@@ -94,6 +99,7 @@ function Navbar1(props) {
             }}
             as={Link}
             to="/"
+            onClick={(e) => logout(e)}
             active
           >
             Logout

@@ -3,25 +3,61 @@ import { Button } from "react-bootstrap";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import AddNewVolunteer from "../AddNewVolunteer/AddNewVolunteer";
 import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import Axios from "axios";
+import * as actionTypes from '../../actions/actions';
 
 const AdminFeaturesComponent = () => {
   const [modalShow, setModalShow] = React.useState(false);
   const [modalShow1, setModalShow1] = React.useState(false);
   const [time, setTime] = React.useState("");
+  const user = useSelector((state) => state.user);
+  const token = useSelector((state) => state.token);
+  const dispatch = useDispatch();
   const history = useHistory();
+
+
   const setStatus = (status) => {
+
     const data = { status };
-    console.log(data)
+    const x={user,token,data};
+    console.log(x);
     //API Call
+    Axios.post("http://localhost:5000/org/updatestatus", x)
+      .then((res) => {
+        if (res.data.success) {
+          console.log("Update Time");
+          console.log(res.data.response);
+          // setTime(res.data.response);
+          dispatch({type:actionTypes.CHANGE_USER , user:res.data.response.user})
+        } else {
+          console.log(res.data.message);
+        }
+      })
+      .catch((err) => {
+        console.log("Axios", err);
+      });
     //setTime(res.data.response);
+
   };
 
-  useEffect(
-    () => {
-      //API Call
-      setTime("11:47 am")
-    },[]
-  )
+  useEffect(() => {
+    //API Call
+    const x={user,token};
+    Axios.post("http://localhost:5000/org/updatestatus", x)
+      .then((res) => {
+        if (res.data.success) {
+          console.log("Update Time");
+          console.log(res.data.response);
+          dispatch({type:actionTypes.CHANGE_USER , user:res.data.response.user})
+        } else {
+          console.log(res.data.message);
+        }
+      })
+      .catch((err) => {
+        console.log("Axios", err);
+      });
+  }, []);
   return (
     <>
       <RegisterModal
@@ -29,7 +65,7 @@ const AdminFeaturesComponent = () => {
         onHide={() => setModalShow(false)}
         size="lg"
       />
-      <AddNewVolunteer 
+      <AddNewVolunteer
         show={modalShow1}
         onHide={() => setModalShow1(false)}
         size="lg"
@@ -53,7 +89,7 @@ const AdminFeaturesComponent = () => {
               background: "#D7D8DE",
               padding: "2vw 14vw 0 2vw",
               textAlign: "left",
-              fontFamily: "Poppins",
+              fontsamily: "Poppins",
             }}
           >
             <div
@@ -124,7 +160,7 @@ const AdminFeaturesComponent = () => {
               background: "#D7D8DE",
               padding: "2vw 2vw 0 14vw",
               textAlign: "right",
-              fontFamily: "Poppins",
+              fontsamily: "Poppins",
             }}
           >
             <div
@@ -172,7 +208,7 @@ const AdminFeaturesComponent = () => {
               background: "#D7D8DE",
               padding: "2vw 14vw 0 2vw",
               textAlign: "left",
-              fontFamily: "Poppins",
+              fontsamily: "Poppins",
             }}
           >
             <div
@@ -203,13 +239,13 @@ const AdminFeaturesComponent = () => {
                 color: "#707070",
               }}
             >
-              Last Updated: {time}
+             {user.ts!="Not updated till now" && <> Last Updated: {user.ts} </> || <> {user.ts} </>}
             </div>
             <div className="row">
               <Button
                 onClick={() => setStatus("Free")}
                 style={{
-                  background: "transparent",
+                  background: user.status=="Free" ? "#A9A9A9" : "transparent",
                   border: "1px solid #707070",
                   padding: "0.2vw 0 0.2vw 0",
                   borderRadius: "20px",
@@ -224,7 +260,7 @@ const AdminFeaturesComponent = () => {
               <Button
                 onClick={() => setStatus("Moderate")}
                 style={{
-                  background: "transparent",
+                  background: user.status=="Moderate" ? "#A9A9A9" : "transparent",
                   border: "1px solid #707070",
                   padding: "0.2vw 0 0.2vw 0",
                   borderRadius: "20px",
@@ -239,7 +275,7 @@ const AdminFeaturesComponent = () => {
               <Button
                 onClick={() => setStatus("Busy")}
                 style={{
-                  background: "transparent",
+                  background: user.status=="Busy" ? "#A9A9A9" : "transparent",
                   border: "1px solid #707070",
                   padding: "0.2vw 0 0.2vw 0",
                   borderRadius: "20px",
@@ -254,7 +290,7 @@ const AdminFeaturesComponent = () => {
               <Button
                 onClick={() => setStatus("Very Busy")}
                 style={{
-                  background: "transparent",
+                  background: user.status=="Very Busy" ? "#A9A9A9" : "transparent",
                   border: "1px solid #707070",
                   padding: "0.2vw 0 0.2vw 0",
                   borderRadius: "20px",

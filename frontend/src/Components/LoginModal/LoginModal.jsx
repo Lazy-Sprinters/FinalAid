@@ -31,7 +31,6 @@ const LoginModal = (props) => {
           console.log(res.data.response);
 
           props.onHide();
-          history.push("/admin");
           dispatch({type:actionTypes.CHANGE_USER , user:res.data.response.user})
           dispatch({type:actionTypes.CHANGE_TOKEN , token:res.data.response.token})
           /*On success ->*/ history.push("/admin");

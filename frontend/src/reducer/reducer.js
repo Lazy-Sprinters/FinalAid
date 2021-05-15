@@ -8,7 +8,7 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.CHANGE_USER: {
-      // console.log("user edited")
+      // {console.log("user edited")}
       return {
         ...state,
         user: action.user,

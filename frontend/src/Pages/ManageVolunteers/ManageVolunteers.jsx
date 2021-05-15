@@ -24,6 +24,10 @@ const ManageVolunteers = () => {
     //displayVolunteer()
   };
 
+  const addNew = () =>{
+    setModalShow1(true)
+  }
+
   const editVolunteer = (data) => {
     setModalShow1(true);
   };
@@ -98,7 +102,7 @@ const ManageVolunteers = () => {
           fontSize: "1.2vw",
           color: "#707070",
         }}
-        onClick={() => search()}
+        onClick={() => addNew()}
       >
         Add New +
       </Button>

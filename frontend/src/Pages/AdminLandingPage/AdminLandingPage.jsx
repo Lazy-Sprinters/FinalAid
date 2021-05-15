@@ -1,11 +1,12 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import AdminFeaturesComponent from "../../Components/AdminFeaturesComponent/AdminFeaturesComponent";
-import Navbar1 from "../../Components/Navbar/Navbar";
+import AdminNavbar from "../../Components/AdminNavbar/AdminNavbar";
 
 const LandingPage = () => {
   return (
     <>
+    <AdminNavbar/>
       <Helmet>
         <title>FinalAid | Admin</title>
         <meta

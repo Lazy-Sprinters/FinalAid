@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 
 function Navbar1(props) {
   const [colors, setColors] = React.useState([
@@ -10,6 +11,7 @@ function Navbar1(props) {
     "white",
     "white",
   ]);
+  const history = useHistory();
 
   const activeColor = (x) => {
     // let currcolors=["#2D7B90","#2D7B90","#2D7B90","#2D7B90","#2D7B90"];
@@ -17,6 +19,9 @@ function Navbar1(props) {
     // setColors(currcolors);
   };
 
+  const logout = (e) =>{
+    window.localStorage.clear();
+  }
   return (
     <Navbar
       style={{ backgroundColor: "black", width: "100%" }}
@@ -42,7 +47,7 @@ function Navbar1(props) {
               color: "white",
             }}
             as={Link}
-            to="/"
+            to="/admin"
             active
           ></Nav.Link>
         </Nav>
@@ -55,23 +60,10 @@ function Navbar1(props) {
             }}
             onClick={() => activeColor(0)}
             as={Link}
-            to="/"
+            to="/admin"
             active
           >
-            Home
-          </Nav.Link>
-          <Nav.Link
-            style={{
-              margin: "0 1vw",
-              font: "normal normal 600 20px/27px Segoe UI",
-              color: colors[1],
-            }}
-            onClick={() => activeColor(1)}
-            as={Link}
-            to="/"
-            active
-          >
-            About
+            Register
           </Nav.Link>
           <Nav.Link
             style={{
@@ -81,10 +73,10 @@ function Navbar1(props) {
             }}
             onClick={() => activeColor(2)}
             as={Link}
-            to="/"
+            to="/volunteers"
             active
           >
-            Donate
+            Volunteers
           </Nav.Link>
           <Nav.Link
             style={{
@@ -94,10 +86,10 @@ function Navbar1(props) {
             }}
             onClick={() => activeColor(3)}
             as={Link}
-            to="/"
+            to="/admin"
             active
           >
-            Search
+            Status
           </Nav.Link>
           <Nav.Link
             style={{
@@ -105,12 +97,12 @@ function Navbar1(props) {
               font: "normal normal 600 20px/27px Segoe UI",
               color: colors[3],
             }}
-            onClick={() => props.setModalShow(true)}
             as={Link}
             to="/"
+            onClick={(e) => logout(e)}
             active
           >
-            Login as Admin
+            Logout
           </Nav.Link>
         </Nav>
       </Navbar.Collapse>

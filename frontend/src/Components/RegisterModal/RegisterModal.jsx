@@ -1,8 +1,8 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import { TextField, Checkbox, FormControlLabel } from "@material-ui/core";
-import Axios from "axios"
-
+import Axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 
 const RegisterModal = (props) => {
   const [modalShow, setModalShow] = React.useState(false);
@@ -13,6 +13,9 @@ const RegisterModal = (props) => {
   const [deceasedAid, setDeceasedAid] = React.useState("");
   const [undertaking, setUndertaking] = React.useState(false);
   const [verified, setVerified] = React.useState(false);
+  const user = useSelector((state) => state.user);
+  const token = useSelector((state) => state.token);
+
   const register = (props) => {
     const data = {
       name,
@@ -23,24 +26,23 @@ const RegisterModal = (props) => {
       undertaking,
       verified,
     };
-    const x={data:data}
+    const x = { user,token,data };
     console.log(data);
     //API Call
-    Axios.post("http://localhost:5000/org/newfundreq",x)
-        .then((res) => {
-            if(res.data.success){
-                console.log("Regestering");
-                console.log(res.data.response)
-                props.onHide();
-                // dispatch({type:actionTypes.CHANGE_USER , user:res.data.response})
-            }
-            else{
-                console.log(res.data.message)
-            }
-        })
-        .catch((err) => {
-          console.log("Axios", err);
-        });
+    Axios.post("http://localhost:5000/org/newfundreq", x)
+      .then((res) => {
+        if (res.data.success) {
+          console.log("Regestering");
+          console.log(res.data.response);
+          props.onHide();
+          // dispatch({type:actionTypes.CHANGE_USER , user:res.data.response})
+        } else {
+          console.log(res.data.message);
+        }
+      })
+      .catch((err) => {
+        console.log("Axios", err);
+      });
   };
   return (
     <>
@@ -50,7 +52,7 @@ const RegisterModal = (props) => {
         backdrop="static"
         // size={props.size}
         centered
-        style={{borderRadius:"20px"}}
+        style={{ borderRadius: "20px" }}
       >
         <Modal.Header style={{ border: "none", background: "#D7D8DE" }}>
           <Modal.Title
@@ -69,7 +71,7 @@ const RegisterModal = (props) => {
               style={{
                 textAlign: "center",
                 marginBottom: "1vw",
-                marginTop:"-1vw"
+                marginTop: "-1vw",
               }}
               inputProps={{
                 style: {
@@ -153,7 +155,7 @@ const RegisterModal = (props) => {
             <br />
             <FormControlLabel
               style={{
-                  height:"2.5vw"
+                height: "2.5vw",
               }}
               control={
                 <Checkbox
@@ -165,7 +167,7 @@ const RegisterModal = (props) => {
             />
             <FormControlLabel
               style={{
-                  height:"2.5vw"
+                height: "2.5vw",
               }}
               control={
                 <Checkbox
@@ -188,7 +190,7 @@ const RegisterModal = (props) => {
               margin: "0 0 0 1vw",
               fontSize: "1.2vw",
               color: "#707070",
-              marginBottom:"1vw"
+              marginBottom: "1vw",
             }}
             onClick={() => register()}
           >
@@ -204,7 +206,7 @@ const RegisterModal = (props) => {
               margin: "0 0 0 1vw",
               fontSize: "1.2vw",
               color: "#707070",
-              marginBottom:"1vw"
+              marginBottom: "1vw",
             }}
             variant="danger"
             onClick={props.onHide}

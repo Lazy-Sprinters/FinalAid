@@ -1,11 +1,13 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
+import Axios from "axios";
 import {
   TextField,
   Checkbox,
   FormControlLabel,
   FormLabel,
 } from "@material-ui/core";
+import { useDispatch, useSelector } from "react-redux";
 
 const AddNewVolunteer = (props) => {
   const [modalShow, setModalShow] = React.useState(false);
@@ -18,6 +20,8 @@ const AddNewVolunteer = (props) => {
   const [verified, setVerified] = React.useState(false);
   const [image, setImage] = React.useState("");
   const [imageType, setImageType] = React.useState("");
+  const user = useSelector((state) => state.user);
+  const token = useSelector((state) => state.token);
 
   const handleBase64 = (e) => {
     let binaryString = e.target.result;
@@ -43,8 +47,24 @@ const AddNewVolunteer = (props) => {
       image,
       imageType,
     };
-    console.log(data);
+    const x = {user,token,data};
+    console.log(x);
+
     //API Call
+    Axios.post("http://localhost:5000/org/newfundreq", x)
+      .then((res) => {
+        if (res.data.success) {
+          console.log("Regestering");
+          console.log(res.data.response);
+          props.onHide();
+          // dispatch({type:actionTypes.CHANGE_USER , user:res.data.response})
+        } else {
+          console.log(res.data.message);
+        }
+      })
+      .catch((err) => {
+        console.log("Axios", err);
+      });
   };
   return (
     <>

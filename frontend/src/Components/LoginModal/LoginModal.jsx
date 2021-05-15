@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
 import Axios from "axios";
 import { useDispatch , useSelector } from 'react-redux';
+import * as actionTypes from '../../actions/actions';
+
 import {
   TextField,
   Checkbox,
@@ -14,6 +16,7 @@ const LoginModal = (props) => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const login = () => {
     const data = {
@@ -26,10 +29,11 @@ const LoginModal = (props) => {
         if (res.data.success) {
           console.log("Proceeding to Home Page");
           console.log(res.data.response);
-          
+
           props.onHide();
           history.push("/admin");
-          // dispatch({type:actionTypes.CHANGE_USER , user:res.data.response})
+          dispatch({type:actionTypes.CHANGE_USER , user:res.data.response.user})
+          dispatch({type:actionTypes.CHANGE_TOKEN , token:res.data.response.token})
           /*On success ->*/ history.push("/admin");
         } else {
           console.log(res.data.message);

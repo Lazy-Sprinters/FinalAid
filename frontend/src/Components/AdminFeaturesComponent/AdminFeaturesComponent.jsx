@@ -1,9 +1,39 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "react-bootstrap";
+import RegisterModal from "../RegisterModal/RegisterModal";
+import AddNewVolunteer from "../AddNewVolunteer/AddNewVolunteer";
+import { useHistory } from "react-router-dom";
 
 const AdminFeaturesComponent = () => {
+  const [modalShow, setModalShow] = React.useState(false);
+  const [modalShow1, setModalShow1] = React.useState(false);
+  const [time, setTime] = React.useState("");
+  const history = useHistory();
+  const setStatus = (status) => {
+    const data = { status };
+    console.log(data)
+    //API Call
+    //setTime(res.data.response);
+  };
+
+  useEffect(
+    () => {
+      //API Call
+      setTime("11:47 am")
+    },[]
+  )
   return (
     <>
+      <RegisterModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        size="lg"
+      />
+      <AddNewVolunteer 
+        show={modalShow1}
+        onHide={() => setModalShow1(false)}
+        size="lg"
+      />
       <div
         style={{
           background: "white",
@@ -57,10 +87,12 @@ const AdminFeaturesComponent = () => {
                 fontSize: "1.2vw",
                 color: "#707070",
               }}
+              onClick={() => setModalShow(true)}
             >
               Register
             </Button>
           </div>
+          <RegisterModal />
           <div
             style={{
               width: "30vw",
@@ -125,6 +157,7 @@ const AdminFeaturesComponent = () => {
                 fontSize: "1.2vw",
                 color: "#707070",
               }}
+              onClick={() => history.push("/volunteers")}
             >
               Manage
             </Button>
@@ -149,7 +182,7 @@ const AdminFeaturesComponent = () => {
               }}
             >
               Update your status <br />
-              of 
+              of
               <span style={{ color: "#707070" }}> crematorial</span>
             </div>
             <div
@@ -167,68 +200,72 @@ const AdminFeaturesComponent = () => {
                 fontWeight: "700",
                 fontSize: "1.7vw",
                 margin: "1vw 0 1vw 0",
-                color: "#707070"
+                color: "#707070",
               }}
             >
-              Last Updated: 11:20 am
+              Last Updated: {time}
             </div>
             <div className="row">
-            <Button
-              style={{
-                background: "transparent",
-                border: "1px solid #707070",
-                padding: "0.2vw 0 0.2vw 0",
-                borderRadius: "20px",
-                width: "7vw",
-                margin: "0 0 0 1vw",
-                fontSize: "1.2vw",
-                color: "#707070",
-              }}
-            >
-              Free
-            </Button>
-            <Button
-              style={{
-                background: "transparent",
-                border: "1px solid #707070",
-                padding: "0.2vw 0 0.2vw 0",
-                borderRadius: "20px",
-                width: "7vw",
-                margin: "0 0 0 1vw",
-                fontSize: "1.2vw",
-                color: "#707070",
-              }}
-            >
-              Moderate
-            </Button>
-            <Button
-              style={{
-                background: "transparent",
-                border: "1px solid #707070",
-                padding: "0.2vw 0 0.2vw 0",
-                borderRadius: "20px",
-                width: "7vw",
-                margin: "0 0 0 1vw",
-                fontSize: "1.2vw",
-                color: "#707070",
-              }}
-            >
-              Busy
-            </Button>
-            <Button
-              style={{
-                background: "transparent",
-                border: "1px solid #707070",
-                padding: "0.2vw 0 0.2vw 0",
-                borderRadius: "20px",
-                width: "7vw",
-                margin: "0 0 0 1vw",
-                fontSize: "1.2vw",
-                color: "#707070",
-              }}
-            >
-              Very Busy
-            </Button>
+              <Button
+                onClick={() => setStatus("Free")}
+                style={{
+                  background: "transparent",
+                  border: "1px solid #707070",
+                  padding: "0.2vw 0 0.2vw 0",
+                  borderRadius: "20px",
+                  width: "7vw",
+                  margin: "0 0 0 1vw",
+                  fontSize: "1.2vw",
+                  color: "#707070",
+                }}
+              >
+                Free
+              </Button>
+              <Button
+                onClick={() => setStatus("Moderate")}
+                style={{
+                  background: "transparent",
+                  border: "1px solid #707070",
+                  padding: "0.2vw 0 0.2vw 0",
+                  borderRadius: "20px",
+                  width: "7vw",
+                  margin: "0 0 0 1vw",
+                  fontSize: "1.2vw",
+                  color: "#707070",
+                }}
+              >
+                Moderate
+              </Button>
+              <Button
+                onClick={() => setStatus("Busy")}
+                style={{
+                  background: "transparent",
+                  border: "1px solid #707070",
+                  padding: "0.2vw 0 0.2vw 0",
+                  borderRadius: "20px",
+                  width: "7vw",
+                  margin: "0 0 0 1vw",
+                  fontSize: "1.2vw",
+                  color: "#707070",
+                }}
+              >
+                Busy
+              </Button>
+              <Button
+                onClick={() => setStatus("Very Busy")}
+                style={{
+                  background: "transparent",
+                  border: "1px solid #707070",
+                  padding: "0.2vw 0 0.2vw 0",
+                  borderRadius: "20px",
+                  width: "7vw",
+                  margin: "0 0 0 1vw",
+                  fontSize: "1.2vw",
+                  color: "#707070",
+                }}
+              >
+                Very Busy
+              </Button>
             </div>
           </div>
           <div
@@ -243,7 +280,6 @@ const AdminFeaturesComponent = () => {
           </div>
         </div>
       </div>
-
     </>
   );
 };

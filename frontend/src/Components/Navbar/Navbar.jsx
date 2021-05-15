@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap";
 
-function Navbar1() {
+function Navbar1(props) {
   const [colors, setColors] = React.useState([
     "white",
     "white",
@@ -105,7 +105,7 @@ function Navbar1() {
               font: "normal normal 600 20px/27px Segoe UI",
               color: colors[3],
             }}
-            onClick={() => activeColor(3)}
+            onClick={() => props.setModalShow(true)}
             as={Link}
             to="/"
             active

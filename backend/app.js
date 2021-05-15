@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const path = require("path");
-const cron=require('node-cron');
 const db=require('./src/dbconfig/firebase');
 const sgMail=require('@sendgrid/mail');
 const utilityRouter = require("./src/routers/utilityRouter");
@@ -43,21 +42,37 @@ app.listen(port, (req, res) => {
   console.log("Fired Up! @ " + port);
 });
 
-// setInterval(()=>{
-//   const listofemails
-// },10000)
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-const msg={
-  to: 'pavitragoyal@hotmail.com',
-  from: process.env.TEST_MAIL,
-  subject: 'Testing Sendgrid',
-  text:'easy to do anywhere, even with Node.js',
-  html:'<strong>and easy to do anywhere, even with Node.js</strong><h1>hello world</h1>'
-};
 
-sgMail.send(msg).then(()=>{
-  console.log("Email Sent")
-}).catch((err)=>{
-  console.error(err)
-})
+setInterval(async ()=>{
+  const listofemails=await db.collection('Subscribers').get();
+  if (!listofemails.empty){
+    const pendingsendouts=await db.collection('Requests').where('notificationssned','==',false).get()
+    if (!pendingsendouts.empty)
+    {
+      let currobj,currid;
+      pendingsendouts.forEach(ele=>{
+        currobj=ele.data()
+        currid=ele.id
+        break
+      })
+      listofemails.forEach((ele)=>{
+        const msg={
+          to: ele.data().email,
+          from: process.env.TEST_MAIL,
+          subject: 'Someone needs our precious Help',
+          html:'<h1>Hi there</h1><h3>A new request arrived!</h3><h5>Please spare some time and donate on {url}!</h5>'
+        };        
+      })
+    }
+  }
+},10000)
+
+
+
+// sgMail.send(msg).then(()=>{
+//   console.log("Email Sent")
+// }).catch((err)=>{
+//   console.error(err)
+// })

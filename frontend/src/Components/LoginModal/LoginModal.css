@@ -1,0 +1,5 @@
+.modal-content {
+    border-radius: 20px !important;
+    box-shadow: 2px 2px 2px 3px black !important;
+    -webkit-box-shadow: 0 !important;
+  }

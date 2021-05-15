@@ -3,6 +3,7 @@ import { Button, Modal } from "react-bootstrap";
 import { TextField, Checkbox, FormControlLabel } from "@material-ui/core";
 import Axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import "./RegisterModal.css"
 
 const RegisterModal = (props) => {
   const [modalShow, setModalShow] = React.useState(false);
@@ -16,7 +17,7 @@ const RegisterModal = (props) => {
   const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
 
-  const register = (props) => {
+  const register = () => {
     const data = {
       name,
       aadhaarId,
@@ -32,7 +33,7 @@ const RegisterModal = (props) => {
     Axios.post("http://localhost:5000/org/newfundreq", x)
       .then((res) => {
         if (res.data.success) {
-          console.log("Regestering");
+          console.log("Registering");
           console.log(res.data.response);
           props.onHide();
           // dispatch({type:actionTypes.CHANGE_USER , user:res.data.response})
@@ -52,9 +53,8 @@ const RegisterModal = (props) => {
         backdrop="static"
         // size={props.size}
         centered
-        style={{ borderRadius: "20px" }}
       >
-        <Modal.Header style={{ border: "none", background: "#D7D8DE" }}>
+        <Modal.Header style={{ border: "none", background: "#D7D8DE",borderRadius:"20px 20px 0 0" }}>
           <Modal.Title
             style={{
               margin: "1vw 7vw 0 10vw",
@@ -65,20 +65,22 @@ const RegisterModal = (props) => {
             Registration Form
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{ background: "#D7D8DE", padding: "0 10vw 0 10vw" }}>
+        <Modal.Body style={{ background: "#D7D8DE", padding: "0 10vw 0 10vw" ,borderRadius:"0 0 20px 20px"}}>
           <div>
             <TextField
               style={{
-                textAlign: "center",
+                
                 marginBottom: "1vw",
                 marginTop: "-1vw",
               }}
               inputProps={{
                 style: {
                   width: "20vw",
+                  textAlign:"center",
+                  letterSpacing:"0.2vw"
                 },
               }}
-              placeholder="Enter Name"
+              placeholder="Name"
               label="Enter Name"
               onChange={(e) => setName(e.target.value)}
               type="text"
@@ -87,15 +89,17 @@ const RegisterModal = (props) => {
             <br />
             <TextField
               style={{
-                textAlign: "center",
+                
                 marginBottom: "1vw",
               }}
               inputProps={{
                 style: {
                   width: "20vw",
+                  textAlign:"center",
+                  letterSpacing:"0.2vw"
                 },
               }}
-              placeholder="Enter Aadhaar ID"
+              placeholder="Aadhaar ID"
               label="Enter Aadhaar ID"
               onChange={(e) => setAadhaarId(e.target.value)}
               type="text"
@@ -104,15 +108,17 @@ const RegisterModal = (props) => {
             <br />
             <TextField
               style={{
-                textAlign: "center",
+                
                 marginBottom: "1vw",
               }}
               inputProps={{
                 style: {
                   width: "20vw",
+                  textAlign:"center",
+                  letterSpacing:"0.2vw"
                 },
               }}
-              placeholder="Enter BPL ID"
+              placeholder="BPL ID"
               label="Enter BPL ID"
               onChange={(e) => setBplId(e.target.value)}
               type="text"
@@ -121,16 +127,18 @@ const RegisterModal = (props) => {
             <br />
             <TextField
               style={{
-                textAlign: "center",
+                
                 marginBottom: "1vw",
               }}
               inputProps={{
                 style: {
                   width: "20vw",
+                  textAlign:"center",
+                  letterSpacing:"0.2vw"
                 },
               }}
-              placeholder="Enter name of Body"
-              label="Enter name of Body"
+              placeholder="Deceased Name"
+              label="Enter Deceased Name"
               onChange={(e) => setDeceasedName(e.target.value)}
               type="text"
               fullWidth
@@ -138,16 +146,18 @@ const RegisterModal = (props) => {
             <br />
             <TextField
               style={{
-                textAlign: "center",
+                
                 marginBottom: "1vw",
               }}
               inputProps={{
                 style: {
                   width: "20vw",
+                  textAlign:"center",
+                  letterSpacing:"0.2vw"
                 },
               }}
-              placeholder="Enter Body's Aadhaar ID"
-              label="Enter Body's Aadhaar ID"
+              placeholder="Deceased's Aadhaar ID"
+              label="Enter Deceased's Aadhaar ID"
               onChange={(e) => setDeceasedAid(e.target.value)}
               type="text"
               fullWidth
@@ -214,9 +224,7 @@ const RegisterModal = (props) => {
             Cancel
           </Button>
         </Modal.Body>
-        <Modal.Footer
-          style={{ border: "none", height: "2vw", marginTop: "-4vw" }}
-        ></Modal.Footer>
+       
       </Modal>
     </>
   );

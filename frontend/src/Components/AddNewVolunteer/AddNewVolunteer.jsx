@@ -7,6 +7,7 @@ import {
   FormControlLabel,
   FormLabel,
 } from "@material-ui/core";
+import "./AddNewVolunteer.css"
 import { useDispatch, useSelector } from "react-redux";
 
 const AddNewVolunteer = (props) => {
@@ -72,33 +73,35 @@ const AddNewVolunteer = (props) => {
         backdrop="static"
         // size={props.size}
         centered
-        style={{ borderRadius: "20px" }}
       >
-        <Modal.Header style={{ border: "none", background: "#D7D8DE" }}>
+        <Modal.Header style={{ border: "none", background: "#D7D8DE" ,borderRadius:"20px 20px 0 0"}}>
           <Modal.Title
             style={{
-              margin: "1vw 7vw 0 10vw",
+              margin: "1vw 6vw 0 7vw",
               fontWeight: "bold",
               fontSize: "2vw",
+              
             }}
           >
             Volunteer Registration
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{ background: "#D7D8DE", padding: "0 10vw 0 10vw" }}>
+        <Modal.Body style={{ background: "#D7D8DE", padding: "0 10vw 0 10vw" ,borderRadius:"0 0 20px 20px"}}>
           <div>
             <TextField
               style={{
-                textAlign: "center",
+                
                 marginBottom: "0.5vw",
                 marginTop: "-1vw",
               }}
               inputProps={{
                 style: {
                   width: "20vw",
+                  textAlign: "center",
+                  letterSpacing:"0.3vw"
                 },
               }}
-              placeholder="Enter Name"
+              placeholder="Name"
               label="Enter Name"
               onChange={(e) => setName(e.target.value)}
               type="text"
@@ -107,15 +110,17 @@ const AddNewVolunteer = (props) => {
             <br />
             <TextField
               style={{
-                textAlign: "center",
+                
                 marginBottom: "0.5vw",
               }}
               inputProps={{
                 style: {
                   width: "20vw",
+                  textAlign: "center",
+                  letterSpacing:"0.3vw"
                 },
               }}
-              placeholder="Enter Contact Number"
+              placeholder="Contact Number"
               label="Enter Contact Number"
               onChange={(e) => setContactNo(e.target.value)}
               type="text"
@@ -124,15 +129,17 @@ const AddNewVolunteer = (props) => {
             <br />
             <TextField
               style={{
-                textAlign: "center",
+                
                 marginBottom: "2vw",
               }}
               inputProps={{
                 style: {
                   width: "20vw",
+                  textAlign: "center",
+                  letterSpacing:"0.3vw"
                 },
               }}
-              placeholder="Enter Aadhaar Number"
+              placeholder="Aadhaar Number"
               label="Enter Aadhaar Number"
               onChange={(e) => setAadhaarNo(e.target.value)}
               type="text"
@@ -141,15 +148,17 @@ const AddNewVolunteer = (props) => {
             <br />
             <TextField
               style={{
-                textAlign: "center",
+                
                 marginBottom: "1.5vw",
               }}
               inputProps={{
                 style: {
                   width: "20vw",
+                  textAlign: "center",
+                  letterSpacing:"0.3vw"
                 },
               }}
-              placeholder="Enter Address"
+              placeholder="Address"
               label="Enter Address"
               onChange={(e) => setAddress(e.target.value)}
               type="text"
@@ -159,12 +168,13 @@ const AddNewVolunteer = (props) => {
             <FormLabel component="legend">Upload Image</FormLabel>
             <TextField
               style={{
-                textAlign: "center",
+                
                 marginBottom: "1vw",
               }}
               inputProps={{
                 style: {
                   width: "20vw",
+                  textAlign: "center",
                 },
               }}
               placeholder="Worker's Profile Image"
@@ -236,9 +246,7 @@ const AddNewVolunteer = (props) => {
             Cancel
           </Button>
         </Modal.Body>
-        <Modal.Footer
-          style={{ border: "none", height: "2vw", marginTop: "-4vw" }}
-        ></Modal.Footer>
+        
       </Modal>
     </>
   );

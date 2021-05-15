@@ -4,7 +4,7 @@ import { Button, Modal } from "react-bootstrap";
 import Axios from "axios";
 import { useDispatch , useSelector } from 'react-redux';
 import * as actionTypes from '../../actions/actions';
-
+import "./LoginModal.css"
 import {
   TextField,
   Checkbox,

@@ -1,35 +1,41 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
-import {Card , CardHeader , CardContent , CardActions ,Avatar , Typography } from '@material-ui/core';
-import { FormatListBulletedRounded} from '@material-ui/icons';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardActions,
+  Avatar,
+  Typography,
+} from "@material-ui/core";
+import {Edit} from '@material-ui/icons'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: '47%',
-    borderRadius: '20px',
-    background: '#C0E1FA 0% 0% no-repeat padding-box',
-    color:'#2D7B90',
-    font: 'Segoe UI'
+    maxWidth: "47%",
+    borderRadius: "20px",
+    background: "#D7D8DE 0% 0% no-repeat padding-box",
+    color: "#000000",
+    font: "Segoe UI",
   },
   expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
+    transform: "rotate(0deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.shortest,
     }),
   },
   expandOpen: {
-    transform: 'rotate(180deg)',
+    transform: "rotate(180deg)",
   },
   avatar: {
-    backgroundColor:'##D7D8DE',
-    width:'4.5vw',
-    height:'4.5vw',
+    backgroundColor: "##D7D8DE",
+    width: "4.5vw",
+    height: "4.5vw",
   },
 }));
 
-export default function CardComponent({User,selectUser}) {
+export default function CardComponent({ User,onEdit}) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -37,54 +43,43 @@ export default function CardComponent({User,selectUser}) {
     setExpanded(!expanded);
   };
 
-  const previewUser = (User) =>{
+  const previewUser = (User) => {
     // selectUser(User);
-      //Open Modal ->> respective
-      //Common Modal -> Before Pics || After Pics || Worker Name & PhoneNumber
-      //> Active   : Before Pics || Reject with reason -> No worker has solved it yet
-      //> Pending  : Common Modal -> waiting for approval of work
-      //> Resolved : Common Modal -> for auditing only
-  }
-  
+    //Open Modal ->> respective
+    //Common Modal -> Before Pics || After Pics || Worker Name & PhoneNumber
+    //> Active   : Before Pics || Reject with reason -> No worker has solved it yet
+    //> Pending  : Common Modal -> waiting for approval of work
+    //> Resolved : Common Modal -> for auditing only
+  };
+
   const data = User;
   const name = User.name;
-  const empId = User.empId;
   const contactNo = User.contactNo;
   const aadhaarNo = User.aadhaarNo;
   const address = User.address;
   const image = User.image;
   return (
     <Card className={classes.root}>
-      <CardContent style={{width:"100%",textAlign:"left",font: 'Segoe UI'}}>
-        <Typography style={{fontSize:"1.5vw"}}>
-          <b>Name:</b> {title}
+      <CardContent
+        style={{ width: "100%", textAlign: "left", font: "Segoe UI" }}
+      >
+        <Typography style={{ fontSize: "1.5vw" }}>
+          <b>Name:</b> {name}
         </Typography>
-        <Typography style={{fontSize:"1.5vw"}}>
-          <b>Employee ID:</b> {phoneNo}
-        </Typography>
-        <Typography style={{fontSize:"1.5vw"}}>
+        <Typography style={{ fontSize: "1.5vw" }}>
           <b>Address:</b> {address}
         </Typography>
-        <Typography style={{fontSize:"1.5vw"}}>
-          <b>Aadhaar Number:</b> {address}
+        <Typography style={{ fontSize: "1.5vw" }}>
+          <b>Aadhaar Number:</b> {aadhaarNo}
         </Typography>
-        <Typography style={{fontSize:"1.5vw"}}>
-          <b>Contact:</b> {address}
+        <Typography style={{ fontSize: "1.5vw" }}>
+          <b>Contact:</b> {contactNo}
         </Typography>
+        <div style={{ width: "5vw", height: "5vw" }}>
+          <img style={{ width: "100%", height: "100%" }} src={image} />
+        </div>
+        <Edit onCLick={() => {onEdit(data)}}/>
       </CardContent>
-      <div       
-        style={{ 
-            cursor:"pointer", 
-            height:"3vw",
-            padding:"0.3vw",
-            fontSize:"1.5vw",
-            textAlign:"center",
-            background:"##D7D8DE 0% 0% no-repeat padding-box",
-            color:"#FFFFFF"
-        }}
-        >
-        Preview
-      </div>
     </Card>
   );
 }

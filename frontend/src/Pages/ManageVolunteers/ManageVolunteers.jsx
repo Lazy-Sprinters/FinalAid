@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Button } from "react-bootstrap";
 import AddNewVolunteer from "../../Components/AddNewVolunteer/AddNewVolunteer";
+import CardComponent from "../../Components/CardComponent/CardComponent";
 import { Helmet } from "react-helmet";
 import { useHistory } from "react-router-dom";
 import {
@@ -14,6 +15,7 @@ import AdminNavbar from "../../Components/AdminNavbar/AdminNavbar";
 const ManageVolunteers = () => {
   const [modalShow1, setModalShow1] = React.useState(false);
   const [volunteerData, setVolunteerData] = React.useState("");
+  const [data, setData] = React.useState("");
   const [name, setName] = React.useState("");
   const [showVolunteers, setShowVolunteers] = React.useState("");
   const history = useHistory();
@@ -30,6 +32,7 @@ const ManageVolunteers = () => {
   }
 
   const editVolunteer = (data) => {
+    setData(data);
     setModalShow1(true);
   };
   const displayVolunteer = () => {
@@ -56,18 +59,21 @@ const ManageVolunteers = () => {
       </Helmet>
       <AddNewVolunteer
         show={modalShow1}
+        data={data}
         onHide={() => setModalShow1(false)}
         size="lg"
       />
       <div className="row" style={{ margin: "2vw 40vw 3vw 40vw" }}>
         <TextField
           style={{
-            textAlign: "center",
+            
             marginBottom: "0.5vw",
           }}
           inputProps={{
             style: {
               width: "10vw",
+              textAlign: "center",
+              letterSpacing:"0.2vw"
             },
           }}
           placeholder="Enter Name"
@@ -79,14 +85,14 @@ const ManageVolunteers = () => {
         <Button
           style={{
             background: "transparent",
-            border: "1px solid #707070",
+            border: "1.2px solid black",
             padding: "0.1vw 0 0.1vw 0",
             borderRadius: "20px",
             width: "7vw",
             height:"3vw",
             margin: "1vw 0 0 1vw",
             fontSize: "1.2vw",
-            color: "#707070",
+            color: "black",
           }}
           onClick={() => search()}
         >
@@ -96,13 +102,13 @@ const ManageVolunteers = () => {
       <Button
         style={{
           background: "transparent",
-          border: "1px solid #707070",
+          border: "1.2px solid black",
           padding: "0.2vw 0 0.2vw 0",
           borderRadius: "20px",
           width: "7vw",
           margin: "0 0 0 45vw",
           fontSize: "1.2vw",
-          color: "#707070",
+          color: "black",
         }}
         onClick={() => addNew()}
       >

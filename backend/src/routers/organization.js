@@ -53,7 +53,7 @@ router.post("/register",async(req,res)=>{
                   bankbranchCode:"",
                   basiccost:2000
             }
-            console.log(orgdata);
+            // console.log(orgdata);
             
             await db.collection("Organization").add(orgdata);
             
@@ -208,6 +208,7 @@ router.post('/newworker',async(req,res)=>{
                   ownerName:req.body.user.name,
                   image:url[0]
             }
+            console.log(data);
 
             const batch=db.batch();
 
@@ -224,7 +225,7 @@ router.post('/newworker',async(req,res)=>{
             data1.forEach(element => {
                   ret.push(element.data());
             });
-            console.log(ret);
+            // console.log(ret);
             res.send({
                   success: true,
                   code: 200,
@@ -244,7 +245,7 @@ router.post('/newworker',async(req,res)=>{
 
 router.post('/newfundreq',async(req,res)=>{
       try{
-            console.log(req.body);
+            // console.log(req.body);
             const data={
                   name:req.body.data.name,
                   aadhaarId:req.body.data.aadhaarId,
@@ -258,7 +259,7 @@ router.post('/newfundreq',async(req,res)=>{
             }
             
             await db.collection("Requests").add(data);
-            console.log(data);
+            // console.log(data);
             res.send({
                   success: true,
                   code: 201,
@@ -267,7 +268,7 @@ router.post('/newfundreq',async(req,res)=>{
             })
 
       }catch(err){
-            console.log(err);
+            // console.log(err);
             res.send({
                   success: false,
                   code: 400,

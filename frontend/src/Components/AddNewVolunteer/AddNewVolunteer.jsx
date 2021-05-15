@@ -49,7 +49,7 @@ const AddNewVolunteer = (props) => {
     console.log(x);
 
     //API Call
-    Axios.post("http://localhost:5000/org/newfundreq", x)
+    Axios.post("http://localhost:5000/org/newworker", x)
       .then((res) => {
         if (res.data.success) {
           console.log("Regestering");

@@ -48,26 +48,32 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 setInterval(async ()=>{
   const listofemails=await db.collection('Subscribers').get();
   if (!listofemails.empty){
-    const pendingsendouts=await db.collection('Requests').where('notificationssned','==',false).get()
+    const pendingsendouts=await db.collection('Requests').where('notificationssned','==',false).limit(1).get()
     if (!pendingsendouts.empty)
     {
       let currobj,currid;
       pendingsendouts.forEach(ele=>{
         currobj=ele.data()
         currid=ele.id
-        break
-      })
+      });
+      let mailinglist=[];
       listofemails.forEach((ele)=>{
+        mailinglist.push(ele.data().email);
+      });
+      for(let i=0;i<mailinglist.length;i++){
         const msg={
-          to: ele.data().email,
+          to: mailinglist[i],
           from: process.env.TEST_MAIL,
           subject: 'Someone needs our precious Help',
           html:'<h1>Hi there</h1><h3>A new request arrived!</h3><h5>Please spare some time and donate on {url}!</h5>'
         };        
-      })
+        sgMail.send(msg).then(()=>{
+        }).catch((err)=>{
+        })
+      }
     }
   }
-},10000)
+},3000)
 
 
 

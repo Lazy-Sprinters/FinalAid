@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from "react-redux";
 const AddNewVolunteer = (props) => {
   const [modalShow, setModalShow] = React.useState(false);
   const [name, setName] = React.useState("");
-  const [empId, setEmpId] = React.useState("");
   const [contactNo, setContactNo] = React.useState("");
   const [aadhaarNo, setAadhaarNo] = React.useState("");
   const [address, setAddress] = React.useState("");
@@ -38,7 +37,6 @@ const AddNewVolunteer = (props) => {
   const register = () => {
     const data = {
       name,
-      empId,
       contactNo,
       aadhaarNo,
       address,
@@ -103,23 +101,6 @@ const AddNewVolunteer = (props) => {
               placeholder="Enter Name"
               label="Enter Name"
               onChange={(e) => setName(e.target.value)}
-              type="text"
-              fullWidth
-            />
-            <br />
-            <TextField
-              style={{
-                textAlign: "center",
-                marginBottom: "0.5vw",
-              }}
-              inputProps={{
-                style: {
-                  width: "20vw",
-                },
-              }}
-              placeholder="Enter Employee ID"
-              label="Enter Employee ID"
-              onChange={(e) => setEmpId(e.target.value)}
               type="text"
               fullWidth
             />

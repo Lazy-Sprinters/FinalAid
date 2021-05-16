@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Axios from "axios";
 import * as actionTypes from '../../actions/actions';
+import { Element } from "react-scroll";
 
 
 const AdminFeaturesComponent = () => {
@@ -77,12 +78,13 @@ const AdminFeaturesComponent = () => {
         style={{
           background: "white",
           width: "100%",
-          height: "170vh",
+          height: "235vh",
           textAlign: "center",
           paddingTop: "2vw",
           color: "black",
         }}
       >
+      <Element id ="hm">
         <div className="row" style={{ marginLeft: "-6vw", width: "90vw" }}>
           <div
             style={{
@@ -101,9 +103,9 @@ const AdminFeaturesComponent = () => {
                 fontSize: "3vw",
               }}
             >
-              For Poor People <br />
-              Who Can't <br />
-              <div style={{ color: "#707070" }}>Afford</div>
+              For <br />
+              the
+              <span style={{ color: "#707070" }}> Helpless</span>
             </div>
             <div
               style={{
@@ -112,8 +114,8 @@ const AdminFeaturesComponent = () => {
                 margin: "1vw 0 1vw 0",
               }}
             >
-              There are many variations of passages of Lorem Ipsum available,
-              but the maj have suffered alteration
+              It's hard enough to lose your loved ones. Help reduce their burden
+              by supporting the final passages of the departed.
             </div>
             <Button
               style={{
@@ -122,7 +124,7 @@ const AdminFeaturesComponent = () => {
                 padding: "0.2vw 0 0.2vw 0",
                 borderRadius: "20px",
                 width: "7vw",
-                margin: "0 0 0 1vw",
+                margin: "1vw 0 0 0",
                 fontSize: "1.2vw",
                 color: "#707070",
               }}
@@ -143,6 +145,7 @@ const AdminFeaturesComponent = () => {
             <img style={{width:"100%",height:"100%"}} src="./images/Poor.jpg" />
           </div>
         </div>
+        </Element>
         <div className="row" style={{ margin: "2vw 0 0 34vw", width: "64vw" }}>
           <div
             style={{
@@ -172,8 +175,9 @@ const AdminFeaturesComponent = () => {
                 fontSize: "3vw",
               }}
             >
-              Manage Your <br />
-              <div style={{ color: "#707070" }}> Volunteers </div>
+             For the
+              <br />
+              <div style={{ color: "#707070" }}> Nameless </div>
             </div>
             <div
               style={{
@@ -182,8 +186,9 @@ const AdminFeaturesComponent = () => {
                 margin: "1vw 0 1vw 0",
               }}
             >
-              There are many variations of passages of Lorem Ipsum available,
-              but the maj have suffered alteration
+              Never has been their need felt greater than now. Selflessly
+              toiling away with little care of their own so others can be safe.
+              Support them get a meal or healthcare supplies.
             </div>
             <Button
               style={{
@@ -202,6 +207,7 @@ const AdminFeaturesComponent = () => {
             </Button>
           </div>
         </div>
+        <Element id="sta">
         <div className="row" style={{ marginLeft: "-6vw", width: "100vw" }}>
           <div
             style={{
@@ -231,8 +237,7 @@ const AdminFeaturesComponent = () => {
                 margin: "1vw 0 1vw 0",
               }}
             >
-              There are many variations of passages of Lorem Ipsum available,
-              but the maj have suffered alteration
+              Inform the public of your working situation.
             </div>
             <div
               style={{
@@ -315,9 +320,10 @@ const AdminFeaturesComponent = () => {
               background: "black",
             }}
           >
-            <img style={{width:"100%",height:"100%"}} src="./images/Managejpg" />
+            <img style={{width:"100%",height:"100%"}} src="./images/Manage.jpg" />
           </div>
         </div>
+        </Element>
       </div>
     </>
   );

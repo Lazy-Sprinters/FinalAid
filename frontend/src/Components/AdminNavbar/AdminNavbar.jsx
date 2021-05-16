@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
+import { scroller } from "react-scroll";
 
 function Navbar1(props) {
   const [colors, setColors] = React.useState([
@@ -14,9 +15,16 @@ function Navbar1(props) {
   const history = useHistory();
 
   const activeColor = (x) => {
-    // let currcolors=["#2D7B90","#2D7B90","#2D7B90","#2D7B90","#2D7B90"];
-    // currcolors[x]="#5ACEB6";
-    // setColors(currcolors);
+    if(x==0){
+      return;
+    }
+    scroller.scrollTo(x, {
+      smooth: true,
+      offset: -70,
+      duration: 500,
+  })
+    // const anchor = document.querySelector(x)
+    // anchor.scrollIntoView({ behavior: 'smooth', block: 'center' })
   };
 
   const logout = (e) =>{
@@ -39,7 +47,7 @@ function Navbar1(props) {
       >
         <Nav style={{ fontSize: "2vw" }}>
           <Nav.Link
-            onClick={() => activeColor(0)}
+            onClick={() => activeColor("hm")}
             style={{
               marginLeft: "-5vw",
               textAlign: "left",
@@ -58,7 +66,7 @@ function Navbar1(props) {
               font: "normal normal 600 20px/27px Segoe UI",
               color: colors[0],
             }}
-            onClick={() => activeColor(0)}
+            onClick={() => activeColor("hm")}
             as={Link}
             to="/admin"
             active
@@ -71,7 +79,7 @@ function Navbar1(props) {
               font: "normal normal 600 20px/27px Segoe UI",
               color: colors[2],
             }}
-            onClick={() => activeColor(2)}
+            onClick={() => activeColor(0)}
             as={Link}
             to="/volunteers"
             active
@@ -84,7 +92,7 @@ function Navbar1(props) {
               font: "normal normal 600 20px/27px Segoe UI",
               color: colors[3],
             }}
-            onClick={() => activeColor(3)}
+            onClick={() => activeColor("sta")}
             as={Link}
             to="/admin"
             active

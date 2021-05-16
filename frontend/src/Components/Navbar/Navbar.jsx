@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap";
-import Scroll from 'react-scroll'
-const ScrollLink = Scroll.ScrollLink
+import { scroller } from "react-scroll";
 
 function Navbar1(props) {
   const [colors, setColors] = React.useState([
@@ -17,6 +16,11 @@ function Navbar1(props) {
     if(x==0){
       return;
     }
+    scroller.scrollTo(x, {
+      smooth: true,
+      offset: -70,
+      duration: 500,
+  })
     // const anchor = document.querySelector(x)
     // anchor.scrollIntoView({ behavior: 'smooth', block: 'center' })
   };
@@ -38,7 +42,7 @@ function Navbar1(props) {
       >
         <Nav style={{ fontSize: "2vw" }}>
           <Nav.Link
-            onClick={() => activeColor(0)}
+            onClick={() => activeColor("hm")}
             style={{
               marginLeft: "-5vw",
               textAlign: "left",
@@ -57,7 +61,7 @@ function Navbar1(props) {
               font: "normal normal 600 20px/27px Segoe UI",
               color: colors[0],
             }}
-            onClick={() => activeColor(0)}
+            onClick={() => activeColor("hm")}
             as={Link}
             to="/"
             active

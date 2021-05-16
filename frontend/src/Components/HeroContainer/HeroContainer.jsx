@@ -102,18 +102,20 @@ const HeroContainer = () => {
   return (
     <>
       {/**************************************************************************************************/}
-      <div
-        style={{
-          width: "100%",
-          height: "100vh",
-          color: "white",
-        }}
-      >
-        <img
-          src="./images/Main.png"
-          style={{ width: "100%", height: "100%" }}
-        />
-      </div>
+      <Element id="hm">
+        <div
+          style={{
+            width: "100%",
+            height: "100vh",
+            color: "white",
+          }}
+        >
+          <img
+            src="./images/Main.png"
+            style={{ width: "100%", height: "100%" }}
+          />
+        </div>
+      </Element>
       {/**************************************************************************************************/}
       <Element id="abt">
         <div
@@ -188,83 +190,91 @@ const HeroContainer = () => {
         Support the nameless and helpless.
       </div>
       {/**************************************************************************************************/}
-      <DonateComponent />
+      <Element id="dnt">
+        <DonateComponent />
+      </Element>
       {/**************************************************************************************************/}
-      <div
-        style={{
-          background: "white",
-          width: "100%",
-          height: "68vh",
-          textAlign: "center",
-          paddingTop: "2vw",
-          color: "black",
-        }}
-      >
+      <Element id="srch">
         <div
           style={{
-            fontSize: "2.2vw",
-            textAlign: "center",
+            background: "white",
             width: "100%",
-            margin: "2vw 3vw 2vw 0 ",
-            fontWeight: "bold",
+            height: "68vh",
+            textAlign: "center",
+            paddingTop: "2vw",
+            color: "black",
           }}
         >
-          Search
+          <div
+            style={{
+              fontSize: "2.2vw",
+              textAlign: "center",
+              width: "100%",
+              margin: "2vw 3vw 2vw 0 ",
+              fontWeight: "bold",
+            }}
+          >
+            Search
+          </div>
+          <div className="row" style={{ marginLeft: "25vw", width: "54vw" }}>
+            <FormControl
+              style={{ minWidth: "15vw", margin: "1vw 3vw 3vw 6vw" }}
+            >
+              <InputLabel
+                style={{
+                  fontSize: "1vw",
+                  fontWeight: "200",
+                  letterSpacing: "0.2vw",
+                }}
+              >
+                Enter your State
+              </InputLabel>
+              <Select
+                value={state1}
+                onChange={(e) => fillDistrictsDropDown(e)}
+                autoWidth
+              >
+                {displayStates}
+              </Select>
+            </FormControl>
+            <FormControl
+              style={{ minWidth: "15vw", margin: "1vw 5vw 3vw 4vw" }}
+            >
+              <InputLabel
+                style={{
+                  fontSize: "1vw",
+                  fontWeight: "200",
+                  letterSpacing: "0.2vw",
+                }}
+              >
+                Enter your City
+              </InputLabel>
+              <Select
+                value={district}
+                onChange={(e) => setDistrict(e.target.value)}
+                autoWidth
+              >
+                {displayDistricts}
+              </Select>
+            </FormControl>
+          </div>
+          <Button
+            style={{
+              background: "transparent",
+              border: "1px solid #707070",
+              padding: "0.2vw 0 0.2vw 0",
+              borderRadius: "20px",
+              width: "7vw",
+              margin: "0 0 0 1vw",
+              fontSize: "1.2vw",
+              color: "#707070",
+            }}
+            onClick={() => search()}
+          >
+            Submit
+          </Button>
         </div>
-        <div className="row" style={{ marginLeft: "25vw", width: "54vw" }}>
-          <FormControl style={{ minWidth: "15vw", margin: "1vw 3vw 3vw 6vw" }}>
-            <InputLabel
-              style={{
-                fontSize: "1vw",
-                fontWeight: "200",
-                letterSpacing: "0.2vw",
-              }}
-            >
-              Enter your State
-            </InputLabel>
-            <Select
-              value={state1}
-              onChange={(e) => fillDistrictsDropDown(e)}
-              autoWidth
-            >
-              {displayStates}
-            </Select>
-          </FormControl>
-          <FormControl style={{ minWidth: "15vw", margin: "1vw 5vw 3vw 4vw" }}>
-            <InputLabel
-              style={{
-                fontSize: "1vw",
-                fontWeight: "200",
-                letterSpacing: "0.2vw",
-              }}
-            >
-              Enter your City
-            </InputLabel>
-            <Select
-              value={district}
-              onChange={(e) => setDistrict(e.target.value)}
-              autoWidth
-            >
-              {displayDistricts}
-            </Select>
-          </FormControl>
-        </div>
-        <Button
-          style={{
-            background: "transparent",
-            border: "1px solid #707070",
-            padding: "0.2vw 0 0.2vw 0",
-            borderRadius: "20px",
-            width: "7vw",
-            margin: "0 0 0 1vw",
-            fontSize: "1.2vw",
-            color: "#707070",
-          }}
-          onClick={() => search()}
-        >
-          Submit
-        </Button>
-      </div>
+      </Element>
       {/**************************************************************************************************/}
       <div
         style={{

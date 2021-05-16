@@ -84,6 +84,7 @@ const DonateWorker = () => {
         data={data}
         onHide={() => setModalShow1(false)}
         size="lg"
+        flag={2}
      />
      
       <div style={{ margin: "3vw 5vw 3vw 5vw" }}>{showOrganisations}</div>{" "}

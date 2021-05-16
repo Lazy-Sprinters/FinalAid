@@ -10,6 +10,7 @@ import "./styles.css";
 import { useHistory } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
+import Axios from "axios";
 
 const CARD_OPTIONS = {
   iconStyle: "solid",
@@ -107,11 +108,20 @@ const ResetButton = ({ onClick }) => (
 );
 
 const CheckoutForm = () => {
-  const name_donater = useSelector((state) => state.donatorInfo.name_donater);
-  const phno_donater = useSelector((state) => state.donatorInfo.phno_donater);
-  const email_donater = useSelector((state) => state.donatorInfo.email_donater);
+  const name_donater = useSelector(
+    (state) => state.donatorInfo.userData.name_donater
+  );
+  const phno_donater = useSelector(
+    (state) => state.donatorInfo.userData.phno_donater
+  );
+  const email_donater = useSelector(
+    (state) => state.donatorInfo.userData.email_donater
+  );
+  const donatorInfo = useSelector((state) => state.donatorInfo);
   const stripe = useStripe();
   const elements = useElements();
+  const user = useSelector((state) => state.user);
+  const token = useSelector((state) => state.token);
   const [error, setError] = useState(null);
   const [cardComplete, setCardComplete] = useState(false);
   const [processing, setProcessing] = useState(false);
@@ -145,8 +155,21 @@ const CheckoutForm = () => {
       card: elements.getElement(CardElement),
       billing_details: billingDetails,
     });
-    console.log(payload, amount);
-    setProcessing(false);
+    console.log(payload, amount, donatorInfo);
+    const x = { user, token, amount:amount, id:donatorInfo.data.id};
+    Axios.post("http://localhost:5000/org/register", x)
+      .then((res) => {
+        if (res.data.success) {
+          console.log("Registering the user");
+          console.log(res.data.response);
+          setProcessing(false);
+        } else {
+          console.log(res.data.message);
+        }
+      })
+      .catch((err) => {
+        console.log("Axios", err);
+      });
 
     if (payload.error) {
       setError(payload.error);
@@ -220,7 +243,7 @@ const CheckoutForm = () => {
           autoComplete="amount"
           value={amount}
           onChange={(e) => {
-            setAmount(e.target.value );
+            setAmount(e.target.value);
           }}
         />
       </fieldset>
@@ -235,8 +258,7 @@ const CheckoutForm = () => {
       </fieldset>
       {error && <ErrorMessage>{error.message}</ErrorMessage>}
       <SubmitButton processing={processing} error={error} disabled={!stripe}>
-        Pay{" "}
-        {(amount != "" && `₹${amount} `) || ""}
+        Pay {(amount != "" && `₹${amount} `) || ""}
       </SubmitButton>
       <button className={`SubmitButton`} onClick={() => back()}>
         Cancel

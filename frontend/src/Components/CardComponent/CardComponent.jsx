@@ -95,7 +95,7 @@ export default function CardComponent({ value, flag, onEdit ,donate}) {
             >
               <img
                 style={{ width: "100%", height: "100%", borderRadius: "20px" }}
-                src={image}
+                src={"data:image/jpg;base64,"+image.toString()}
               />
             </div>
             <Edit

@@ -4,9 +4,15 @@ import Axios from "axios";
 import { FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
 import DonateComponent from "../DonateComponent/DonateComponent";
 import Subscription from "../Subscription/Subscription";
+import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import * as actionTypes from "../../actions/actions";
+
 const HeroContainer = () => {
   const [displayStates, setDisplayStates] = React.useState("");
   const [displayDistricts, setDisplayDistricts] = React.useState("");
+  const history = useHistory();
+  const dispatch = useDispatch();
   const [states, setStates] = React.useState([
     "Andhra-Pradesh",
     "Arunachal-Pradesh",
@@ -53,7 +59,9 @@ const HeroContainer = () => {
 
   const fillDistrictsDropDown = (e) => {
     setState1(e.target.value);
-    Axios.post("http://localhost:5000/utility/districts", {state:e.target.value})
+    Axios.post("http://localhost:5000/utility/districts", {
+      state: e.target.value,
+    })
       .then((res) => {
         if (res.data.success) {
           console.log("Filling up the Districts");
@@ -77,6 +85,8 @@ const HeroContainer = () => {
     const data = { state: state1, district };
     console.log(data);
     //API Call
+    dispatch({ type: actionTypes.CHANGE_SEARCHDATA, searchData: data });
+    history.push("/search");
   };
 
   useEffect(() => {
@@ -105,6 +115,7 @@ const HeroContainer = () => {
       </div>
       {/**************************************************************************************************/}
       <div
+        id="abt"
         style={{
           background: "white",
           width: "100%",
@@ -139,17 +150,19 @@ const HeroContainer = () => {
           <div
             style={{
               width: "37.5vw",
-              margin: "7.5vw 0vw 5vw 2vw",
+              margin: "3.5vw 0vw 5vw 2vw",
               height: "30vw",
               fontSize: "2vw",
               textAlign: "justify",
               fontWeight: "600",
             }}
           >
-            In publishing and graphic design, Lorem ipsum is a placeholder text
-            commonly used to demonstrate the visual form of a document or a
-            typeface without relying on meaningful content. Lorem ipsum may be
-            used as a placeholder before final copy is available.
+            Losing someone close you to hard, especially in these times when
+            people have to stay apart. It's even harder for those who have been
+            hit by the pandemic so hard that they're unable to say goodbye to
+            their loved ones. Help them bid farewell. Help those who're working
+            tirelessly with no care for their own well being. Even the smallest
+            donation helps.
           </div>
         </div>
       </div>
@@ -167,7 +180,7 @@ const HeroContainer = () => {
           textAlign: "left",
         }}
       >
-        Even the smallest help can do wonders.
+        Support the nameless and helpless.
       </div>
       {/**************************************************************************************************/}
       <DonateComponent />
@@ -264,7 +277,7 @@ const HeroContainer = () => {
             className="col"
             style={{ alignItems: "center", margin: "3vw 2vw 0 15vw" }}
           >
-            <div >
+            <div>
               <div
                 style={{
                   margin: "0 2.5vw 1.5vw 2.5vw",
@@ -274,7 +287,6 @@ const HeroContainer = () => {
                   height: "5vw",
                 }}
               ></div>
-              
             </div>
             <div
               style={{
@@ -291,7 +303,7 @@ const HeroContainer = () => {
             className="col"
             style={{ alignItems: "center", margin: "3vw 2vw 0 2vw" }}
           >
-            <div >
+            <div>
               <div
                 style={{
                   margin: "0 2.5vw 1.5vw 2.5vw",
@@ -301,7 +313,6 @@ const HeroContainer = () => {
                   height: "5vw",
                 }}
               ></div>
-              
             </div>
             <div
               style={{
@@ -318,7 +329,7 @@ const HeroContainer = () => {
             className="col"
             style={{ alignItems: "center", margin: "3vw 2vw 0 2vw" }}
           >
-            <div >
+            <div>
               <div
                 style={{
                   margin: "0 2.5vw 1.5vw 2.5vw",
@@ -328,7 +339,6 @@ const HeroContainer = () => {
                   height: "5vw",
                 }}
               ></div>
-              
             </div>
             <div
               style={{

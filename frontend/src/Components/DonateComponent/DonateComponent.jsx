@@ -44,9 +44,9 @@ const DonateComponent = () => {
                 fontSize: "3vw",
               }}
             >
-              For Poor People <br />
-              Who Can't <br />
-              <div style={{ color: "#707070" }}>Afford</div>
+              For <br />
+              the
+              <span style={{ color: "#707070" }}> Helpless</span>
             </div>
             <div
               style={{
@@ -55,8 +55,8 @@ const DonateComponent = () => {
                 margin: "1vw 0 1vw 0",
               }}
             >
-              There are many variations of passages of Lorem Ipsum available,
-              but the maj have suffered alteration
+              It's hard enough to lose your loved ones. Help reduce their burden
+              by supporting the final passages of the departed.
             </div>
             <Button
               style={{
@@ -65,7 +65,7 @@ const DonateComponent = () => {
                 padding: "0.2vw 0 0.2vw 0",
                 borderRadius: "20px",
                 width: "7vw",
-                margin: "0 0 0 1vw",
+                margin: "1vw 0 0 0",
                 fontSize: "1.2vw",
                 color: "#707070",
               }}
@@ -114,10 +114,9 @@ const DonateComponent = () => {
                 fontSize: "3vw",
               }}
             >
-              For Volunteers <br />
-              Who Work At
+              For the
               <br />
-              <div style={{ color: "#707070" }}> Crematorium </div>
+              <div style={{ color: "#707070" }}> Nameless </div>
             </div>
             <div
               style={{
@@ -126,8 +125,9 @@ const DonateComponent = () => {
                 margin: "1vw 0 1vw 0",
               }}
             >
-              There are many variations of passages of Lorem Ipsum available,
-              but the maj have suffered alteration
+              Never has been their need felt greater than now. Selflessly
+              toiling away with little care of their own so others can be safe.
+              Support them get a meal or healthcare supplies.
             </div>
             <Button
               style={{
@@ -140,6 +140,7 @@ const DonateComponent = () => {
                 fontSize: "1.2vw",
                 color: "#707070",
               }}
+              onClick={() => history.push("/donateWorker")}
             >
               Donate
             </Button>

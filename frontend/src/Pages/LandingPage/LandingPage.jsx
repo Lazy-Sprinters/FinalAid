@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 import HeroContainer from "../../Components/HeroContainer/HeroContainer";
 import LoginModal from "../../Components/LoginModal/LoginModal";
 import Navbar1 from "../../Components/Navbar/Navbar";
-
+import Footer from "../../Components/Footer/Footer"
 const LandingPage = () => {
   const [modalShow, setModalShow] = React.useState(false);
   return (
@@ -23,6 +23,7 @@ const LandingPage = () => {
       </Helmet>
       {/* <Navbar1/ > */}
       <HeroContainer/>
+      <Footer/>
     </>
   );
 };

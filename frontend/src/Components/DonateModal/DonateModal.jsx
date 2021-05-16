@@ -10,6 +10,8 @@ import {
 import "./DonateModal.css";
 import { useDispatch, useSelector } from "react-redux";
 // import SuccessResponse from "../SuccessResponse/SuccessResponse";
+import * as actionTypes from "../../actions/actions";
+import { useHistory } from "react-router-dom";
 
 const DonateModal = (props) => {
   const [modalShow, setModalShow] = React.useState(false);
@@ -19,7 +21,8 @@ const DonateModal = (props) => {
   const [undertaking, setUndertaking] = React.useState(false);
   const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
-//   const [success, setSuccess] = React.useState(false);
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const proceed = () => {
     const data = {
@@ -30,7 +33,7 @@ const DonateModal = (props) => {
     };
     const x = { user, token, data };
     console.log(x);
-
+    dispatch({type:actionTypes.CHANGE_DONATORINFO , donatorInfo:props.data});
     //API Call
     // Axios.post("http://localhost:5000/org/newworker", x)
     //   .then((res) => {
@@ -47,6 +50,7 @@ const DonateModal = (props) => {
     //   .catch((err) => {
     //     console.log("Axios", err);
     //   });
+    history.push("/donateStripe");
   };
   useEffect(() => {
     if (props.data != null) {
@@ -140,8 +144,8 @@ const DonateModal = (props) => {
                   letterSpacing: "0.3vw",
                 },
               }}
-              placeholder="Aadhaar Number"
-              label="Enter Aadhaar Number"
+              placeholder="Email Address"
+              label="Enter Email Address"
               onChange={(e) => setEmaildonater(e.target.value)}
               type="text"
               fullWidth
@@ -160,8 +164,20 @@ const DonateModal = (props) => {
               label="Undertaking"
             />
           </div>
+          <div
+            style={{
+              fontWeight: "600",
+              color: "#707070",
+              fontSize: "1vw",
+              margin: "0 -5vw 1vw -5vw",
+              textAlign: "center",
+            }}
+          >
+            * On clicking submit, you will be redirected to a STRIPE custom made
+            Payment Portal.
+          </div>
           <Button
-            disabled={!(undertaking )}
+            disabled={!undertaking}
             variant="success"
             style={{
               background: "transparent",

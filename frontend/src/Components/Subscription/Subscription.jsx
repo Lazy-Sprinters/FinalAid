@@ -4,26 +4,24 @@ import { TextField } from "@material-ui/core";
 import Axios from "axios";
 
 const Subscription = () => {
-  const [name,setName]=React.useState("");
-  const [email,setEmail]=React.useState("");
+  const [name, setName] = React.useState("");
+  const [email, setEmail] = React.useState("");
 
   const addNewSubscriber = () => {
-
-    const data={name,email};
-    Axios.post("http://localhost:5000/utility/mailnew",data)
-    .then((res) => {
-        if(res.data.success){
-            console.log("Adding a new Subscriber");
-            console.log(res.data.response)
-            // dispatch({type:actionTypes.CHANGE_USER , user:res.data.response})
+    const data = { name, email };
+    Axios.post("http://localhost:5000/utility/mailnew", data)
+      .then((res) => {
+        if (res.data.success) {
+          console.log("Adding a new Subscriber");
+          console.log(res.data.response);
+          // dispatch({type:actionTypes.CHANGE_USER , user:res.data.response})
+        } else {
+          console.log(res.data.message);
         }
-        else{
-            console.log(res.data.message)
-        }
-    })
-    .catch((err) => {
-      console.log("Axios", err);
-    });
+      })
+      .catch((err) => {
+        console.log("Axios", err);
+      });
   };
 
   return (
@@ -39,7 +37,7 @@ const Subscription = () => {
         letterSpacing: "0.2vw",
       }}
     >
-      <div className="row" style={{width:"70vw"}}>
+      <div className="row" style={{ width: "70vw" }}>
         <div>
           <TextField
             style={{ margin: "2vw 0 0 0", padding: "1vw 0 0 0 " }}
@@ -89,13 +87,27 @@ const Subscription = () => {
           </Button>
         </div>
         <div style={{ margin: "-13vw 2vw 0 15vw" }}>
-          <div style={{ fontSize: "3.5vw", fontWeight: "bold" , textAlign: "right"}}>
-            Lorem ipsum <br />
-            available
+          <div
+            style={{
+              fontSize: "3.5vw",
+              fontWeight: "bold",
+              textAlign: "right",
+            }}
+          >
+            Want to Donate?
           </div>
-          <div style={{margin: "0 0 0 24vw",letterSpacing:"0.1vw", textAlign: "right"}}>
-            There are many variations of passages of Lorem Ipsum available, but
-            the maj have suffered alteration
+          <div
+            style={{
+              margin: "0 0 0 16vw",
+              letterSpacing: "0.1vw",
+              fontSize: "1.5vw",
+              textAlign: "right",
+            }}
+          >
+            There's always someone who needs our help. There's always someone
+            willing to help. What's more worrisome than wanting to help but
+            being uninformed? Subscribe to our mailing list to get the latest
+            information about the people who require your assistance.
           </div>
         </div>
       </div>

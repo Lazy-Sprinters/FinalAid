@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Axios from "axios";
 import Navbar1 from "../../Components/Navbar/Navbar";
 
-const DonatePoorPage = () => {
+const DonateWorker = () => {
   const [modalShow1, setModalShow1] = React.useState(false);
   const [organisationData, setOrganisationData] = React.useState("");
   const [data, setData] = React.useState(null);
@@ -30,30 +30,29 @@ const DonatePoorPage = () => {
     //   code.push(<CardComponent value={value} flag={false} onEdit={0} donate={donate}/>);
     // });
     for(let i=0;i<data1.length;i+=2){
-      if(data1.length%2!=0 && i==data1.length-1){
-          code.push(
-              <div style={{justifyContent: "space-between",padding:"2vw 0"}} className="row1" >
-              <CardComponent  value = {data1[i]}  flag={2} onEdit={0} donate={donate}/>
-              </div>
-          )
-      }
-      else{
-          code.push(
-              <div style={{justifyContent: "space-between",padding:"2vw 0"}} className="row1" >
-              <CardComponent  value = {data1[i]}  flag={2} onEdit={0} donate={donate}/>
-              <CardComponent  value = {data1[i+1]}  flag={2} onEdit={0} donate={donate}/>
-              </div>
-          )
-      }
-
-  }
+        if(data1.length%2!=0 && i==data1.length-1){
+            code.push(
+                <div style={{justifyContent: "space-between",padding:"2vw 0"}} className="row1" >
+                <CardComponent  value = {data1[i]}  flag={3} onEdit={0} donate={donate}/>
+                </div>
+            )
+        }
+        else{
+            code.push(
+                <div style={{justifyContent: "space-between",padding:"2vw 0"}} className="row1" >
+                <CardComponent  value = {data1[i]}  flag={3} onEdit={0} donate={donate}/>
+                <CardComponent  value = {data1[i+1]}  flag={3} onEdit={0} donate={donate}/>
+                </div>
+            )
+        }
+    }
     setShowOrganisations(code);
   };
   
   useEffect(() => {
     //Call Api
     const x = { user, token };
-    Axios.post("http://localhost:5000/donate/allopenrequests", x)
+    Axios.post("http://localhost:5000/donate/allcentresfund", x)
       .then((res) => {
         if (res.data.success) {
           console.log("Organisations displayed");
@@ -92,4 +91,4 @@ const DonatePoorPage = () => {
   );
 };
 
-export default DonatePoorPage;
+export default DonateWorker;

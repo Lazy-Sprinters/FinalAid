@@ -12,9 +12,11 @@ function Navbar1(props) {
   ]);
 
   const activeColor = (x) => {
-    // let currcolors=["#2D7B90","#2D7B90","#2D7B90","#2D7B90","#2D7B90"];
-    // currcolors[x]="#5ACEB6";
-    // setColors(currcolors);
+    if(x==0){
+      return;
+    }
+    // const anchor = document.querySelector(x)
+    // anchor.scrollIntoView({ behavior: 'smooth', block: 'center' })
   };
 
   return (
@@ -66,9 +68,9 @@ function Navbar1(props) {
               font: "normal normal 600 20px/27px Segoe UI",
               color: colors[1],
             }}
-            onClick={() => activeColor(1)}
+            onClick={() => activeColor("abt")}
             as={Link}
-            to="/"
+            to="#abt"
             active
           >
             About
@@ -79,7 +81,7 @@ function Navbar1(props) {
               font: "normal normal 600 20px/27px Segoe UI",
               color: colors[2],
             }}
-            onClick={() => activeColor(2)}
+            onClick={() => activeColor("dnt")}
             as={Link}
             to="/"
             active
@@ -92,7 +94,7 @@ function Navbar1(props) {
               font: "normal normal 600 20px/27px Segoe UI",
               color: colors[3],
             }}
-            onClick={() => activeColor(3)}
+            onClick={() => activeColor("srch")}
             as={Link}
             to="/"
             active

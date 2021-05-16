@@ -35,7 +35,7 @@ const ManageVolunteers = () => {
     }
     // console.log(data.length)
     data1.map((value) => {
-      code.push(<CardComponent value={value} flag={true} onEdit={editVolunteer} donate={0}/>);
+      code.push(<CardComponent value={value} flag={1} onEdit={editVolunteer} donate={0}/>);
     });
     setShowVolunteers(code);
   };

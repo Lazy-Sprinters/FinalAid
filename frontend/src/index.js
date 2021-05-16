@@ -40,7 +40,9 @@ const store = createStore(
 store.subscribe(() => {
   saveState({
   	user:store.getState().user,
-  	token:store.getState().token
+  	token:store.getState().token,
+  	donatorInfo:store.getState().donatorInfo,
+  	searchData:store.getState().searchData
 
   });
 });

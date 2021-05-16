@@ -3,6 +3,8 @@ import * as actionTypes from "../actions/actions";
 const initialState = {
   user: null,
   token: null,
+  donatorInfo: null,
+  searchData: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -19,6 +21,20 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         token: action.token,
+      };
+    }
+    case actionTypes.CHANGE_DONATORINFO: {
+      // console.log("token edited")
+      return {
+        ...state,
+        donatorInfo: action.donatorInfo,
+      };
+    }
+    case actionTypes.CHANGE_SEARCHDATA: {
+      // console.log("token edited")
+      return {
+        ...state,
+        searchData: action.searchData,
       };
     }
   }

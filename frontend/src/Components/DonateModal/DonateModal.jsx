@@ -33,7 +33,7 @@ const DonateModal = (props) => {
     };
     const x = { user, token, data };
     console.log(x);
-    dispatch({type:actionTypes.CHANGE_DONATORINFO , donatorInfo:{data:props.data,userData:data}});
+    dispatch({type:actionTypes.CHANGE_DONATORINFO , donatorInfo:{data:props.data,userData:data,flag:props.flag}});
     //API Call
     // Axios.post("http://localhost:5000/org/newworker", x)
     //   .then((res) => {

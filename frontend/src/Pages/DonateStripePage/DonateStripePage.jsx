@@ -157,7 +157,8 @@ const CheckoutForm = () => {
     });
     console.log(payload, amount, donatorInfo);
     const x = { user, token, amount:amount, id:donatorInfo.data.id};
-    Axios.post("http://localhost:5000/org/register", x)
+    if(donatorInfo.flag==1){
+    Axios.post("http://localhost:5000/donate/donationintoperson", x)
       .then((res) => {
         if (res.data.success) {
           console.log("Registering the user");
@@ -170,6 +171,22 @@ const CheckoutForm = () => {
       .catch((err) => {
         console.log("Axios", err);
       });
+    }
+    else if(donatorInfo.flag==2){
+      Axios.post("http://localhost:5000/donate/donationintoorg", x)
+      .then((res) => {
+        if (res.data.success) {
+          console.log("Registering the user");
+          console.log(res.data.response);
+          setProcessing(false);
+        } else {
+          console.log(res.data.message);
+        }
+      })
+      .catch((err) => {
+        console.log("Axios", err);
+      });
+    }
 
     if (payload.error) {
       setError(payload.error);

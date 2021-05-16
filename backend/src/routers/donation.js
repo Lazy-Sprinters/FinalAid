@@ -30,7 +30,7 @@ const GetOtp = () => {
 router.post("/donationintoperson",async(req,res)=>{
       try{
             const id=req.body.id;
-            const amount=req.body.funds;
+            const amount=parseInt(req.body.amount);
             const dataref=await db.collection('Requests').doc(id).get();
             const data=dataref.data();
             if (data.procuredAmount+amount==data.basiccost){
@@ -41,7 +41,7 @@ router.post("/donationintoperson",async(req,res)=>{
             res.send({
                   success: true,
                   code: 200,
-                  message: "Funds added Successfully",
+                  message: "Amount added Successfully",
                   response: null
             });
       }catch(err){
@@ -59,8 +59,8 @@ router.post("/donationintoorg",async (req,res)=>{
       try{
             //Implement a stripe gateway protocol upon confirmation of business account
             const id=req.body.id;
-            const amount=req.body.funds;
-            const updateref=await db.collection('Organization').doc(id).update({currfunds:firestore.FieldValue.increment(amount)});
+            const amount=req.body.amount;
+            const updateref=await db.collection('Organization').doc(id).update({currAmount:firestore.FieldValue.increment(amount)});
             res.send({
                   success: true,
                   code: 200,
@@ -80,7 +80,7 @@ router.post("/donationintoorg",async (req,res)=>{
 
 router.post("/bufferbackup",async(req,res)=>{
       try{
-            const amount=req.body.funds;
+            const amount=req.body.Amount;
             const updref=await db.collection('MasterAccount').doc(process.env.ID1).update({
                   Balance:firestore.FieldValue.increment(amount)
             });
@@ -167,7 +167,7 @@ router.post("/allcentresfund",async (req,res)=>{
                         ret.push({
                               ...ele.data(),
                               id:ele.id,
-                              reqfunds:20000-ele.currfunds
+                              reqAmount:20000-ele.currAmount
                         });
                   })
                   for(let i=0;i<ret.length;i++){

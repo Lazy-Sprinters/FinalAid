@@ -6,6 +6,7 @@ const db = require("./src/dbconfig/firebase");
 const utilityRouter = require("./src/routers/utilityRouter");
 const orgRouter = require("./src/routers/organization");
 const donationRouter = require("./src/routers/donation");
+const nodemailer=require('nodemailer');
 
 const app = express();
 
@@ -45,6 +46,14 @@ app.listen(port, (req, res) => {
 
 //CHANGE IT--->>>.NODEMAILER
 
+const transporter=nodemailer.createTransport({
+  service: process.env.SECRET,
+  auth:{
+        user:process.env.TEST_MAIL,
+        pass:process.env.TEST_PASS
+  }
+});
+
 // setInterval(async () => {
 //   try {
 //     const listofemails = await db.collection("Subscribers").get();
@@ -62,8 +71,6 @@ app.listen(port, (req, res) => {
 //         listofemails.forEach((ele) => {
 //           mailinglist.push(ele.data().email);
 //         });
-//         // console.log(mailinglist);
-//         // console.log(currdata);
 //         for (let j = 0; j < currdata.length; j++) {
 //           for (let i = 0; i < mailinglist.length; i++) {
 //             const msg = {
@@ -72,15 +79,7 @@ app.listen(port, (req, res) => {
 //               subject: "Someone needs our precious Help",
 //               html: "<h1>Hi there</h1><h3>A new request arrived!</h3><h5>Please spare some time and donate on {url}!</h5>",
 //             };
-//             // console.log(msg);
-//             sgMail
-//               .send(msg)
-//               .then(() => {
-//                 console.log("Mail sent");
-//               })
-//               .catch((err) => {
-//                 console.log(err.message);
-//               });
+//             let emailv=await transporter.sendMail(msg);
 //           }
 //           const updateack = await db
 //             .collection("Requests")

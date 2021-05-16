@@ -9,6 +9,7 @@ const nodemailer=require('nodemailer');
 const fs=require('fs');
 const jwt=require('jsonwebtoken');
 const dtime=require('node-datetime');
+const stream=require('stream')
 const {firestore}=require('firebase-admin');
 
 require('dotenv').config({path:path.resolve(__dirname,'../../.env')})
@@ -169,32 +170,6 @@ router.post('/search',async (req,res)=>{
 router.post('/newworker',async(req,res)=>{
       try{
             const image=req.body.data.image;
-            const flag=GetOtp().toString();
-            let type="";
-            for (let i = 6; i < req.body.data.imageType.length; i++) {
-                  type += req.body.data.imageType[i];
-            }     
-            fs.writeFileSync(
-                  path.resolve(__dirname, `../public/${flag}.${type}`),
-                  image,
-                  "base64"
-            );
-            const options = {
-                  version: "v4",
-                  action: "read",
-                  expires: Date.now() + 10005 * 60 * 1000, // 10005 minutes
-            };
-            const updpic = new Uint8Array(
-                  fs.readFileSync(path.resolve(__dirname, `../public/${flag}.${type}`))
-            );
-
-            const file1=bucket.file(`HelperPic/${flag}`);
-            await file1.save(updpic, {
-                  resumable: false,
-                  metadata: { contentType: "image/" + type },
-            });
-            const url = await file1.getSignedUrl(options);
-            fs.unlinkSync(path.resolve(__dirname, `../public/${flag}.${type}`));
             const data={
                   name:req.body.data.name,
                   contactNo:req.body.data.contactNo,
@@ -202,10 +177,9 @@ router.post('/newworker',async(req,res)=>{
                   address:req.body.data.address,
                   ownerid:req.body.user.id,
                   ownerName:req.body.user.name,
-                  image:url[0]
+                  image:image
             }
-            console.log(data);
-
+            // console.log(data);
             const batch=db.batch();
 
             const orgref=db.collection("Organization").doc(req.body.user.id).collection("Helper").doc(req.body.data.aadhaarNo);
@@ -215,9 +189,8 @@ router.post('/newworker',async(req,res)=>{
             batch.update(orgref1,{noofworker:firestore.FieldValue.increment(1)});
 
             await batch.commit();
-
-            const data1=await db.collection("Organization").doc(req.body.user.id).collection("Helper").get();
             let ret=[]
+            const data1=await db.collection("Organization").doc(req.body.user.id).collection("Helper").get();
             data1.forEach(element => {
                   ret.push(element.data());
             });
@@ -228,8 +201,9 @@ router.post('/newworker',async(req,res)=>{
                   message: "Workers fetched successfully",
                   response: ret
             })
+            
       }catch(err){
-            console.log(err);
+            // console.log(err);
             res.send({
                   success: false,
                   code: 400,
@@ -294,6 +268,7 @@ router.post('/newfundreq',async(req,res)=>{
                   notificationssned:false,
                   procuredAmount:0,
                   basiccost:req.body.user.basiccost,
+                  state:req.body.user.state,
                   ts:firestore.Timestamp.now()
             }
             

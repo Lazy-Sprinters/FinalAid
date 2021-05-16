@@ -101,17 +101,20 @@ router.post('/checkauth',async(req,res)=>{
       }
 });
 
-router.post('/stats',async(req,res)=>{
-      try{
-
-      }catch(err){
-            res.send({
-                  success: false,
-                  code: 403,
-                  message: "Session Invalid",
-                  response: null,
-            });
-      }
-})
+// router.post('/stats1',async(req,res)=>{
+//       try{
+//             //geostata
+//             //map of state to requests
+//             let Map={};
+//             Map["Uttar"]
+//       }catch(err){
+//             res.send({
+//                   success: false,
+//                   code: 403,
+//                   message: "Session Invalid",
+//                   response: null,
+//             });
+//       }
+// })
 
 module.exports=router

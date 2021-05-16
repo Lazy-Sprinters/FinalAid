@@ -6,9 +6,6 @@ const bcrypt=require('bcryptjs');
 const db=require('../dbconfig/firebase');
 const bucket=require('../dbconfig/storage');
 const nodemailer=require('nodemailer');
-const fs=require('fs');
-const jwt=require('jsonwebtoken');
-const dtime=require('node-datetime');
 const {firestore}=require('firebase-admin');
 
 require('dotenv').config({path:path.resolve(__dirname,'../../.env')})
@@ -30,8 +27,23 @@ const GetOtp = () => {
 };
 
 
-router.post("/donationintobuffer",async(req,res)=>{
+router.post("/donationintoperson",async(req,res)=>{
       try{
+            const id=req.body.id;
+            const amount=req.body.funds;
+            const dataref=await db.collection('Requests').doc(id).get();
+            const data=dataref.data();
+            if (data.procuredAmount+amount==data.basiccost){
+                  const upd=await db.collection('Requests').doc(id).update({procured:true,procuredAmount:data.basiccost});
+            }else{
+                  const upd=await db.collection('Requests').doc(id).update({procuredAmount:firestore.FieldValue.increment(amount)});
+            }
+            res.send({
+                  success: true,
+                  code: 200,
+                  message: "Funds added Successfully",
+                  response: null
+            });
       }catch(err){
             console.log(err);
             res.send({
@@ -45,7 +57,16 @@ router.post("/donationintobuffer",async(req,res)=>{
 
 router.post("/donationintoorg",async (req,res)=>{
       try{
-
+            //Implement a stripe gateway protocol upon confirmation of business account
+            const id=req.body.id;
+            const amount=req.body.funds;
+            const updateref=await db.collection('Organization').doc(id).update({currfunds:firestore.FieldValue.increment(amount)});
+            res.send({
+                  success: true,
+                  code: 200,
+                  message: "Payment Successfully credited",
+                  response: null
+            });
       }catch(err){
             console.log(err);
             res.send({
@@ -59,7 +80,16 @@ router.post("/donationintoorg",async (req,res)=>{
 
 router.post("/bufferbackup",async(req,res)=>{
       try{
-
+            const amount=req.body.funds;
+            const updref=await db.collection('MasterAccount').doc(process.env.ID1).update({
+                  Balance:firestore.FieldValue.increment(amount)
+            });
+            res.send({
+                  success: true,
+                  code: 200,
+                  message: "Buffer Credit Successfully",
+                  response: null
+            });
       }catch(err){
             console.log(err);
             res.send({
@@ -136,7 +166,8 @@ router.post("/allcentresfund",async (req,res)=>{
                   snapshot.forEach(ele=>{
                         ret.push({
                               ...ele.data(),
-                              id:ele.id
+                              id:ele.id,
+                              reqfunds:20000-ele.currfunds
                         });
                   })
                   for(let i=0;i<ret.length;i++){
@@ -162,6 +193,6 @@ router.post("/allcentresfund",async (req,res)=>{
                   response: null
             });
       }
-})
+});
 
 module.exports=router

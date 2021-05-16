@@ -16,8 +16,6 @@
   "dependencies": {
     "@google-cloud/firestore": "^4.11.1",
     "@google-cloud/storage": "^5.8.5",
-    "@sendgrid/mail": "^7.4.4",
-    "@vonage/server-sdk": "^2.10.7",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
@@ -26,21 +24,15 @@
     "epxress": "0.0.1-security",
     "express": "^4.17.1",
     "express-validator": "^6.10.0",
-    "faker": "^5.5.3",
     "firebase": "^8.6.1",
     "firebase-admin": "^9.8.0",
     "fs": "0.0.1-security",
-    "jimp": "^0.16.1",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
-    "multer": "^1.4.2",
-    "node-cron": "^3.0.0",
     "node-datetime": "^2.1.2",
-    "node-schedule": "^2.0.0",
     "nodemailer": "^6.6.0",
     "path": "^0.12.7",
-    "stripe": "^8.148.0",
-    "validator": "^13.5.2"
+    "stripe": "^8.148.0"
   },
   "devDependencies": {
     "dotenv": "^8.6.0",

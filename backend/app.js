@@ -3,7 +3,6 @@ const cors = require("cors");
 const morgan = require("morgan");
 const path = require("path");
 const db = require("./src/dbconfig/firebase");
-const sgMail = require("@sendgrid/mail");
 const utilityRouter = require("./src/routers/utilityRouter");
 const orgRouter = require("./src/routers/organization");
 const donationRouter = require("./src/routers/donation");
@@ -45,7 +44,6 @@ app.listen(port, (req, res) => {
 });
 
 //CHANGE IT--->>>.NODEMAILER
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // setInterval(async () => {
 //   try {
@@ -128,3 +126,14 @@ setInterval(async () => {
     console.log(err);
   }
 }, 10000);//every 10 mins
+
+//PROCESS FOR INFORMING NGOS ABOUT THE FUNDS
+
+// setInterval(async () => {
+//   try {
+//     // const balref=await db.collection(process.env.CNAME).doc(process.env.ID2).get();
+//     //send out emails to all the orgs if they need funds we can help them with ppe or meals as per requirements 
+//   } catch (err) {
+//     console.log(err);
+//   }
+// }, 5000);//every 10 mins

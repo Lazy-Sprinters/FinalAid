@@ -46,6 +46,7 @@ router.post("/register",async(req,res)=>{
                   bankbranchCode:"",
                   basiccost:2000,/* to be taken from the user */
                   ts:"Not updated till now",
+                  currfunds:0
             }
             // console.log(orgdata);
             
@@ -353,6 +354,28 @@ router.post('/updatestatus',async (req,res)=>{
                   response: null
             });
       }
-})
+});
+
+router.post('/logout',async (req,res)=>{
+      try{
+            const ref=db.collection('Organization').doc(req.body.user.id);
+            ref.update({tokens:firestore.FieldValue.delete()});
+            res.send({
+                  success: true,
+                  code: 400,
+                  message: "Logged Out Successfully",
+                  response: null
+            });
+      }catch(err){
+            // console.log(err.message);
+            res.send({
+                  success: false,
+                  code: 400,
+                  message: err.message,
+                  response: null
+            });
+      }
+});
+
 
 module.exports=router

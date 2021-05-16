@@ -66,8 +66,15 @@ router.post('/checkauth',async(req,res)=>{
                   });
             }else{
                   const decoded=jwt.verify(req.body.token,process.env.SECRET);
+                  let check2=false;
+                  req.body.user.tokens.forEach(element => {
+                        if (element===req.body.token){
+                              check2=true;
+                        }
+                  });
+
                   // console.log(decoded);
-                  if (decoded._id==req.body.user.id){            
+                  if (decoded._id==req.body.user.id && check2==true){            
                         res.send({
                               success: true,
                               code: 200,

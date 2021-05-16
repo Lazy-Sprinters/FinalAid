@@ -108,13 +108,15 @@ const HeroContainer = () => {
             width: "100%",
             height: "100vh",
             color: "white",
+            backgroundImage: "url('./images/Main.png')",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            filter:"contrast(70%)",
+            padding:"26vw 10vw 10vw 10vw"
           }}
-        >
-          <img
-            src="./images/Main.png"
-            style={{ width: "100%", height: "100%" }}
-          />
-        </div>
+        ><div style={{textAlign:"center",fontSize:"5vw",fontWeight:"bold"}}>Final Aid</div><div style={{textAlign:"center",fontSize:"3vw",fontWeight:"600"}}>Support the nameless and helpless.</div></div>
+        
       </Element>
       {/**************************************************************************************************/}
       <Element id="abt">
@@ -276,7 +278,7 @@ const HeroContainer = () => {
         </div>
       </Element>
       {/**************************************************************************************************/}
-      <div
+      {/* <div
         style={{
           background: "#D7D8DE",
           width: "100%",
@@ -365,6 +367,56 @@ const HeroContainer = () => {
             >
               Request Pending
             </div>
+          </div>
+        </div>
+      </div> */}
+      <div
+        style={{
+          background: "#D7D8DE",
+          width: "100%",
+          height: "250vh",
+          textAlign: "center",
+          paddingTop: "2vw",
+          color: "#707070",
+          letterSpacing: "0.2vw",
+        }}
+      >
+        <div
+          style={{
+            fontSize: "2.2vw",
+            textAlign: "center",
+            width: "100%",
+            fontWeight: "bold",
+          }}
+        >
+          Data Visualisation
+        </div>
+        <div style={{ width: "100vw" }}>
+          <div
+            style={{
+              alignItems: "center",
+              margin: "3vw 2vw 0 15vw",
+              width: "70vw",
+              height: "50vw",
+            }}
+          >
+            <img
+              src="./images/stat1.png"
+              style={{ width: "100%", height: "100%" }}
+            />
+          </div>
+          <div
+            style={{
+              alignItems: "center",
+              margin: "3vw 2vw 0 15vw",
+              width: "70vw",
+              height: "50vw",
+            }}
+          >
+            <img
+              src="./images/stats2.png"
+              style={{ width: "100%", height: "100%" }}
+            />
           </div>
         </div>
       </div>

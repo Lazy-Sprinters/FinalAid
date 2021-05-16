@@ -52,7 +52,7 @@ function Navbar1(props) {
             as={Link}
             to="/"
             active
-          ></Nav.Link>
+          >FinalAid</Nav.Link>
         </Nav>
         <Nav className="ml-auto">
           <Nav.Link

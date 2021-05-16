@@ -37,7 +37,7 @@ function Navbar1(props) {
       collapseOnSelect
       expand="lg"
     >
-      <Navbar.Brand onClick={() => activeColor(0)} as={Link} to="/admin">
+      <Navbar.Brand onClick={() => activeColor("hm")} as={Link} to="/admin">
         <img style={{ width: "2vw" }} src="./images/Logo.svg" />
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -57,7 +57,7 @@ function Navbar1(props) {
             as={Link}
             to="/admin"
             active
-          ></Nav.Link>
+          >FinalAid</Nav.Link>
         </Nav>
         <Nav className="ml-auto">
           <Nav.Link

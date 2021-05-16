@@ -57,10 +57,10 @@ Supporting the selfless workers is also an issue and the donations can also be m
 # Implementation:
  
  ## Video: 
-  
+  ### https://youtu.be/F79a1Wn5OMI
 
  ## Presentation: 
-  ###
+  ### https://drive.google.com/file/d/1kDw-XlDJc4j_j3haFtlpseiL0dC1R6dD/view?usp=sharing
   
 
 # FRONTEND

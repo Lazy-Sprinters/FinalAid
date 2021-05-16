@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap";
+import Scroll from 'react-scroll'
+const ScrollLink = Scroll.ScrollLink
 
 function Navbar1(props) {
   const [colors, setColors] = React.useState([
@@ -62,6 +64,7 @@ function Navbar1(props) {
           >
             Home
           </Nav.Link>
+          
           <Nav.Link
             style={{
               margin: "0 1vw",

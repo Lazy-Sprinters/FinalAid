@@ -7,6 +7,7 @@ import Subscription from "../Subscription/Subscription";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as actionTypes from "../../actions/actions";
+import { Element } from "react-scroll";
 
 const HeroContainer = () => {
   const [displayStates, setDisplayStates] = React.useState("");
@@ -114,58 +115,62 @@ const HeroContainer = () => {
         />
       </div>
       {/**************************************************************************************************/}
-      <div
-        id="abt"
-        style={{
-          background: "white",
-          width: "100%",
-          height: "100vh",
-          textAlign: "center",
-          paddingTop: "2vw",
-          color: "black",
-          fontSize: "5vw",
-        }}
-      >
+      <Element id="abt">
         <div
           style={{
-            fontSize: "2.2vw",
-            textAlign: "center",
+            background: "white",
             width: "100%",
-            fontWeight: "bold",
+            height: "100vh",
+            textAlign: "center",
+            paddingTop: "2vw",
+            color: "black",
+            fontSize: "5vw",
           }}
         >
-          About
-        </div>
-        <div className="row" style={{ width: "90vw" }}>
           <div
             style={{
-              width: "43.5vw",
-              margin: "3.5vw 0 0 6vw",
-              height: "30vw",
-              background: "black",
+              fontSize: "2.2vw",
+              textAlign: "center",
+              width: "100%",
+              fontWeight: "bold",
             }}
           >
-            <img src="1" />
+            About
           </div>
-          <div
-            style={{
-              width: "37.5vw",
-              margin: "3.5vw 0vw 5vw 2vw",
-              height: "30vw",
-              fontSize: "2vw",
-              textAlign: "justify",
-              fontWeight: "600",
-            }}
-          >
-            Losing someone close you to hard, especially in these times when
-            people have to stay apart. It's even harder for those who have been
-            hit by the pandemic so hard that they're unable to say goodbye to
-            their loved ones. Help them bid farewell. Help those who're working
-            tirelessly with no care for their own well being. Even the smallest
-            donation helps.
+          <div className="row" style={{ width: "90vw" }}>
+            <div
+              style={{
+                width: "43.5vw",
+                margin: "3.5vw 0 0 6vw",
+                height: "30vw",
+                background: "black",
+              }}
+            >
+              <img
+                style={{ width: "100%", height: "100%" }}
+                src="./images/Manage.jpg"
+              />
+            </div>
+            <div
+              style={{
+                width: "37.5vw",
+                margin: "3.5vw 0vw 5vw 2vw",
+                height: "30vw",
+                fontSize: "2vw",
+                textAlign: "justify",
+                fontWeight: "600",
+              }}
+            >
+              Losing someone close you to hard, especially in these times when
+              people have to stay apart. It's even harder for those who have
+              been hit by the pandemic so hard that they're unable to say
+              goodbye to their loved ones. Help them bid farewell. Help those
+              who're working tirelessly with no care for their own well being.
+              Even the smallest donation helps.
+            </div>
           </div>
         </div>
-      </div>
+      </Element>
       {/**************************************************************************************************/}
       <div
         style={{

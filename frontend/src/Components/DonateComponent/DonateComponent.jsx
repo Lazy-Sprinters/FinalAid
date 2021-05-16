@@ -82,7 +82,7 @@ const DonateComponent = () => {
               background: "black",
             }}
           >
-            <img src="1" />
+            <img  style={{width:"100%",height:"100%"}} src="./images/Poor.jpg"/>
           </div>
         </div>
         <div className="row" style={{ margin: "2vw 0 0 34vw", width: "64vw" }}>
@@ -95,7 +95,7 @@ const DonateComponent = () => {
               zIndex: "1",
             }}
           >
-            <img src="1" />
+            <img  style={{width:"100%",height:"100%"}} src="./images/Volunteers.jpg" />
           </div>
           <div
             style={{
